@@ -42,6 +42,27 @@
 %token <token> OPEN_PARENTHESIS
 %token <token> SUB
 
+%token <token> OPEN
+%token <token> SAVE
+%token <token> CROP
+%token <token> RESIZE
+%token <token> ROTATE
+%token <token> FLIP
+%token <token> MERGE
+%token <token> BRIGHTNESS
+%token <token> CONTRAST
+%token <token> OPACITY
+%token <token> INVERT
+%token <token> GRAYSCALE
+%token <token> FILTER
+%token <token> RECOLOR
+%token <token> BLUR
+%token <token> SHARPEN
+%token <token> PIXELATE
+%token <token> BLEND
+%token <token> HORIZONTALLY
+%token <token> VERTICALLY
+
 %token <token> UNKNOWN
 
 /** Non-terminals. */
@@ -70,6 +91,7 @@ expression: expression[left] ADD expression[right]					{ $$ = ArithmeticExpressi
 	| expression[left] MUL expression[right]						{ $$ = ArithmeticExpressionSemanticAction($left, $right, MULTIPLICATION); }
 	| expression[left] SUB expression[right]						{ $$ = ArithmeticExpressionSemanticAction($left, $right, SUBTRACTION); }
 	| factor														{ $$ = FactorExpressionSemanticAction($1); }
+	| FLIP expression HORIZONTALLY
 	;
 
 factor: OPEN_PARENTHESIS expression CLOSE_PARENTHESIS				{ $$ = ExpressionFactorSemanticAction($2); }

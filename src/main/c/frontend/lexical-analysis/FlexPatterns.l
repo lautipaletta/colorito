@@ -34,6 +34,36 @@ static YY_BUFFER_STATE importedExpressionBufferState = NULL;
 <MULTILINE_COMMENT>[^*]+			{ IgnoredLexemeAction(createLexicalAnalyzerContext()); }
 <MULTILINE_COMMENT>.				{ IgnoredLexemeAction(createLexicalAnalyzerContext()); }
 
+/**
+"open"              { return OPEN; }
+"save"              { return SAVE; }
+
+"crop"              { return CROP; }
+"resize"            { return RESIZE; }
+"rotate"            { return ROTATE; }
+"flip"              { return FLIP; }
+"merge"             { return MERGE; }
+
+"brightness"        { return BRIGHTNESS; }
+"contrast"          { return CONTRAST; }
+"opacity"           { return OPACITY; }
+"invert"            { return INVERT; }
+"grayscale"         { return GRAYSCALE; }
+"filter"            { return FILTER; }
+"recolor"           { return RECOLOR; }
+
+"blur"              { return BLUR; }
+"sharpen"           { return SHARPEN; }
+"pixelate"          { return PIXELATE; }
+
+"blend"             { return BLEND; }
+
+"horizontally"		{ return HORIZONTALLY; }
+"vertically"		{ return VERTICALLY; }
+
+(100|[1-9]?[0-9])%	{ return PERCENTAGE }
+*/
+
 "-"									{ return ArithmeticOperatorLexemeAction(createLexicalAnalyzerContext(), SUB); }
 "*"									{ return ArithmeticOperatorLexemeAction(createLexicalAnalyzerContext(), MUL); }
 "/"									{ return ArithmeticOperatorLexemeAction(createLexicalAnalyzerContext(), DIV); }

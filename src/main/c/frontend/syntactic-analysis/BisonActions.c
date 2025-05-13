@@ -85,3 +85,15 @@ Program * ExpressionProgramSemanticAction(CompilerState * compilerState, Express
 	}
 	return program;
 }
+
+// TODO: liberar memoria que se reserva en strings
+
+// void destroySemanticValue(union SemanticValue* value, Token token) {
+//     if (value != NULL) {
+//         if (token == STRING && value->string != NULL) {
+//             free(value->string);
+//             value->string = NULL;
+//         }
+//         // Limpiar otros tipos si es necesario
+//     }
+// }

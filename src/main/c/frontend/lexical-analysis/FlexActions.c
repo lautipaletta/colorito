@@ -57,11 +57,26 @@ void IgnoredLexemeAction(LexicalAnalyzerContext * lexicalAnalyzerContext) {
 	destroyLexicalAnalyzerContext(lexicalAnalyzerContext);
 }
 
-Token ArithmeticOperatorLexemeAction(LexicalAnalyzerContext * lexicalAnalyzerContext, Token token) {
+Token ImageOperatorLexemeAction(LexicalAnalyzerContext * lexicalAnalyzerContext, Token token) {
 	_logLexicalAnalyzerContext(__FUNCTION__, lexicalAnalyzerContext);
 	lexicalAnalyzerContext->semanticValue->token = token;
 	destroyLexicalAnalyzerContext(lexicalAnalyzerContext);
 	return token;
+}
+
+Token StringLexemeAction(LexicalAnalyzerContext * lexicalAnalyzerContext) {
+    _logLexicalAnalyzerContext(__FUNCTION__, lexicalAnalyzerContext);
+    lexicalAnalyzerContext->semanticValue->string = strdup(lexicalAnalyzerContext->lexeme + 1);
+    lexicalAnalyzerContext->semanticValue->string[strlen(lexicalAnalyzerContext->semanticValue->string) - 1] = '\0';
+    destroyLexicalAnalyzerContext(lexicalAnalyzerContext);
+    return STRING;
+}
+
+Token DimensionLexemeAction(LexicalAnalyzerContext * lexicalAnalyzerContext) {
+	_logLexicalAnalyzerContext(__FUNCTION__, lexicalAnalyzerContext);
+	lexicalAnalyzerContext->semanticValue->string = strdup(lexicalAnalyzerContext->lexeme);
+	destroyLexicalAnalyzerContext(lexicalAnalyzerContext);
+	return DIMENSION;
 }
 
 Token IntegerLexemeAction(LexicalAnalyzerContext * lexicalAnalyzerContext) {
@@ -69,6 +84,29 @@ Token IntegerLexemeAction(LexicalAnalyzerContext * lexicalAnalyzerContext) {
 	lexicalAnalyzerContext->semanticValue->integer = atoi(lexicalAnalyzerContext->lexeme);
 	destroyLexicalAnalyzerContext(lexicalAnalyzerContext);
 	return INTEGER;
+}
+
+Token ColorLexemeAction(LexicalAnalyzerContext * lexicalAnalyzerContext) {
+	_logLexicalAnalyzerContext(__FUNCTION__, lexicalAnalyzerContext);
+	lexicalAnalyzerContext->semanticValue->string = strdup(lexicalAnalyzerContext->lexeme);
+	destroyLexicalAnalyzerContext(lexicalAnalyzerContext);
+	return COLOR;
+}
+
+Token PercentageLexemeAction(LexicalAnalyzerContext * lexicalAnalyzerContext) {
+	_logLexicalAnalyzerContext(__FUNCTION__, lexicalAnalyzerContext);
+	char* temp = strdup(lexicalAnalyzerContext->lexeme);
+	temp[strlen(temp) - 1] = '\0';
+	lexicalAnalyzerContext->semanticValue->integer = atoi(temp);
+	free(temp);
+	destroyLexicalAnalyzerContext(lexicalAnalyzerContext);
+	return PERCENTAGE;
+}
+
+Token SemicolonLexemeAction(LexicalAnalyzerContext * lexicalAnalyzerContext) {
+	_logLexicalAnalyzerContext(__FUNCTION__, lexicalAnalyzerContext);
+	destroyLexicalAnalyzerContext(lexicalAnalyzerContext);
+	return SEMICOLON;
 }
 
 Token ParenthesisLexemeAction(LexicalAnalyzerContext * lexicalAnalyzerContext, Token token) {

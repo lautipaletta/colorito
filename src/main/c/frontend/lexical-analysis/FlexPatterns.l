@@ -34,80 +34,56 @@ static YY_BUFFER_STATE importedExpressionBufferState = NULL;
 <MULTILINE_COMMENT>[^*]+			{ IgnoredLexemeAction(createLexicalAnalyzerContext()); }
 <MULTILINE_COMMENT>.				{ IgnoredLexemeAction(createLexicalAnalyzerContext()); }
 
-/**
-"open"              { return OPEN; }
-"save"              { return SAVE; }
+"open"              				{ return ImageOperatorLexemeAction(createLexicalAnalyzerContext(), OPEN); }
+"save"              				{ return ImageOperatorLexemeAction(createLexicalAnalyzerContext(), SAVE); }
 
-"crop"              { return CROP; }
-"resize"            { return RESIZE; }
-"rotate"            { return ROTATE; }
-"flip"              { return FLIP; }
-"merge"             { return MERGE; }
+"crop"              				{ return ImageOperatorLexemeAction(createLexicalAnalyzerContext(), CROP); }
+"resize"            				{ return ImageOperatorLexemeAction(createLexicalAnalyzerContext(), RESIZE); }
+"rotate"            				{ return ImageOperatorLexemeAction(createLexicalAnalyzerContext(), ROTATE); }
+"flip"              				{ return ImageOperatorLexemeAction(createLexicalAnalyzerContext(), FLIP); }
+"merge"             				{ return ImageOperatorLexemeAction(createLexicalAnalyzerContext(), MERGE); }
 
-"brightness"        { return BRIGHTNESS; }
-"contrast"          { return CONTRAST; }
-"opacity"           { return OPACITY; }
-"invert"            { return INVERT; }
-"grayscale"         { return GRAYSCALE; }
-"filter"            { return FILTER; }
-"recolor"           { return RECOLOR; }
+"brightness"        				{ return ImageOperatorLexemeAction(createLexicalAnalyzerContext(), BRIGHTNESS); }
+"contrast"          				{ return ImageOperatorLexemeAction(createLexicalAnalyzerContext(), CONTRAST); }
+"opacity"           				{ return ImageOperatorLexemeAction(createLexicalAnalyzerContext(), OPACITY); }
+"invert"            				{ return ImageOperatorLexemeAction(createLexicalAnalyzerContext(), INVERT); }
+"grayscale"         				{ return ImageOperatorLexemeAction(createLexicalAnalyzerContext(), GRAYSCALE); }
+"recolor"           				{ return ImageOperatorLexemeAction(createLexicalAnalyzerContext(), RECOLOR); }
 
-"blur"              { return BLUR; }
-"sharpen"           { return SHARPEN; }
-"pixelate"          { return PIXELATE; }
+"blur"              				{ return ImageOperatorLexemeAction(createLexicalAnalyzerContext(), BLUR); }
+"sharpen"           				{ return ImageOperatorLexemeAction(createLexicalAnalyzerContext(), SHARPEN); }
+"pixelate"          				{ return ImageOperatorLexemeAction(createLexicalAnalyzerContext(), PIXELATE); }
 
-"blend"             { return BLEND; }
+"blend"             				{ return ImageOperatorLexemeAction(createLexicalAnalyzerContext(), BLEND); }
 
-"horizontally"		{ return HORIZONTALLY; }
-"vertically"		{ return VERTICALLY; }
+"horizontally"						{ return ImageOperatorLexemeAction(createLexicalAnalyzerContext(), HORIZONTALLY); }
+"vertically"						{ return ImageOperatorLexemeAction(createLexicalAnalyzerContext(), VERTICALLY); }
 
-(100|[1-9]?[0-9])%	{ return PERCENTAGE }
-*/
+"in"                				{ return ImageOperatorLexemeAction(createLexicalAnalyzerContext(), IN); }
+"get"               				{ return ImageOperatorLexemeAction(createLexicalAnalyzerContext(), GET); }
+"to"                				{ return ImageOperatorLexemeAction(createLexicalAnalyzerContext(), TO); }
+"by"                				{ return ImageOperatorLexemeAction(createLexicalAnalyzerContext(), BY); }
+"with"              				{ return ImageOperatorLexemeAction(createLexicalAnalyzerContext(), WITH); }
+"using"             				{ return ImageOperatorLexemeAction(createLexicalAnalyzerContext(), USING); }
+"on"                				{ return ImageOperatorLexemeAction(createLexicalAnalyzerContext(), ON); }
 
-"-"									{ return ArithmeticOperatorLexemeAction(createLexicalAnalyzerContext(), SUB); }
-"*"									{ return ArithmeticOperatorLexemeAction(createLexicalAnalyzerContext(), MUL); }
-"/"									{ return ArithmeticOperatorLexemeAction(createLexicalAnalyzerContext(), DIV); }
-"+"									{ return ArithmeticOperatorLexemeAction(createLexicalAnalyzerContext(), ADD); }
+(100|[1-9]?[0-9])%					{ return PercentageLexemeAction(createLexicalAnalyzerContext()); }
+
+[[:digit:]]+x[[:digit:]]+ 			{ return DimensionLexemeAction(createLexicalAnalyzerContext()); }
+
+#[0-9A-Fa-f]{6}                     { return ColorLexemeAction(createLexicalAnalyzerContext()); }
 
 "("									{ return ParenthesisLexemeAction(createLexicalAnalyzerContext(), OPEN_PARENTHESIS); }
 ")"									{ return ParenthesisLexemeAction(createLexicalAnalyzerContext(), CLOSE_PARENTHESIS); }
 
-"{"									{
-										printf("%s", "[FlexPatterns] Context-switch to IMPORT_EXPRESSION.\n");
-										BEGIN(IMPORT_EXPRESSION);
-									}
+\"[^"\n]*\"    						{ return StringLexemeAction(createLexicalAnalyzerContext()); }
 
-<IMPORT_EXPRESSION>[^{}]+			{
-										LexicalAnalyzerContext * lexicalAnalyzerContext = createLexicalAnalyzerContext();
-										printf("[FlexPatterns] Creating next buffer to consume from file '%s'.\n", lexicalAnalyzerContext->lexeme);
-										yyin = fopen(lexicalAnalyzerContext->lexeme, "r");
-										importedExpressionBufferState = yy_create_buffer(yyin, YY_BUF_SIZE);
-										destroyLexicalAnalyzerContext(lexicalAnalyzerContext);
-									}
+";"									{ return SemicolonLexemeAction(createLexicalAnalyzerContext()); }
 
-<IMPORT_EXPRESSION>"}"				{
-										printf("%s", "[FlexPatterns] Loading next buffer from imported expression.\n");
-										yypush_buffer_state(importedExpressionBufferState);
-										BEGIN(INITIAL);
-									}
-
-<IMPORT_EXPRESSION>.				{
-										printf("%s", "[FlexPatterns] Syntax error inside import expression.\n");
-										return UnknownLexemeAction(createLexicalAnalyzerContext());
-									}
-
-<<EOF>>								{
-										printf("%s", "[FlexPatterns] EOF, poping buffer.\n");
-										yypop_buffer_state();
-										if (!YY_CURRENT_BUFFER) {
-											// Signals Bison to stop the parsing if there is no more input buffers in the stack.
-											yyterminate();
-										}
-									}
-
-[[:digit:]]+						{ return IntegerLexemeAction(createLexicalAnalyzerContext()); }
+-?[[:digit:]]+						{ return IntegerLexemeAction(createLexicalAnalyzerContext()); }
 
 [[:space:]]+						{ IgnoredLexemeAction(createLexicalAnalyzerContext()); }
+
 .									{ return UnknownLexemeAction(createLexicalAnalyzerContext()); }
 
 %%

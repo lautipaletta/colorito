@@ -67,7 +67,7 @@ Expression * SaveImageExpressionSemanticAction (Expression * expression, const c
 	result->image = expression;
 	result->filename = strdup(filename);
 	result->type = SAVE_IMAGE;
-	return expression;
+	return result;
 }
 
 // TODO: liberar memoria que se reserva en strings

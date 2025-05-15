@@ -77,7 +77,7 @@ struct Constant {
 };
 
 struct Filename {
-    const char *
+    const char * filename;
 }
 
 /*struct Factor {

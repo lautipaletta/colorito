@@ -21,12 +21,12 @@ void shutdownBisonActionsModule();
 /**
  * Constantes y factores.
  */
-Constant * IntegerConstantSemanticAction(const int value);
+/*Constant * IntegerConstantSemanticAction(const int value);
 Constant * StringConstantSemanticAction(const char * value);
 Constant * DimensionConstantSemanticAction(const char * value);
 Constant * PercentageConstantSemanticAction(const int value);
 Constant * OrientationConstantSemanticAction(const Token token);
-Constant * ColorConstantSemanticAction(const char * value);
+Constant * ColorConstantSemanticAction(const char * value);*/
 
 /**
  * Expresiones generales.
@@ -47,12 +47,12 @@ Expression * ContrastImageExpressionSemanticAction(Expression * image, int amoun
 Expression * BlurImageExpressionSemanticAction(Expression * image, int amount);
 Expression * PixelateImageExpressionSemanticAction(Expression * image, int amount);
 Expression * OpacityImageExpressionSemanticAction(Expression * image, int percentage);
-Expression * FlipImageExpressionSemanticAction(Expression * image, Constant * orientation);
+Expression * FlipImageExpressionSemanticAction(Expression * image, DirectionType orientation);
 Expression * GrayscaleImageExpressionSemanticAction(Expression * image);
 Expression * InvertImageExpressionSemanticAction(Expression * image);
 Expression * SharpenImageExpressionSemanticAction(Expression * image);
 Expression * BlendImageExpressionSemanticAction(Expression * image1, Expression * image2, int amount);
-Expression * MergeImageExpressionSemanticAction(Expression * image1, Expression * image2, Constant * orientation);
+Expression * MergeImageExpressionSemanticAction(Expression * image1, Expression * image2, DirectionType orientation);
 Expression * RecolorImageExpressionSemanticAction(Expression * image, const char * sourceColor1, const char * sourceColor2, const char * targetColor);
 
 #endif

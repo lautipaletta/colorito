@@ -56,19 +56,154 @@ Program * ExpressionProgramSemanticAction(CompilerState * compilerState, Express
 Expression * OpenImageExpressionSemanticAction (const char * filename){
 	_logSyntacticAnalyzerAction(__FUNCTION__);
 	Expression * result = calloc(1, sizeof(Expression));
-	result->filename = strdup(filename);
+	result->data.open.filename = strdup(filename);
 	result->type = OPEN_IMAGE;
 	return result;
 }
 
-Expression * SaveImageExpressionSemanticAction (Expression * expression, const char * filename){
+Expression * SaveImageExpressionSemanticAction (Expression * image, const char * filename){
 	_logSyntacticAnalyzerAction(__FUNCTION__);
 	Expression * result = calloc(1, sizeof(Expression));
-	result->image = expression;
-	result->filename = strdup(filename);
+	result->data.save.image = image;
+	result->data.save.filename = strdup(filename);
 	result->type = SAVE_IMAGE;
 	return result;
 }
+
+Expression * CropImageExpressionSemanticAction(Expression * image, int divisions_qty, int output_division) {
+	_logSyntacticAnalyzerAction(__FUNCTION__);
+	Expression * result = calloc(1, sizeof(Expression));
+	result->data.crop.image = image;
+	result->data.crop.divisions_qty = divisions_qty;
+	result->data.crop.output_division = output_division;
+	result->type = CROP_IMAGE;
+	return result;
+}
+
+Expression * ResizeImageExpressionSemanticAction(Expression * image, const char * dimension) {
+	_logSyntacticAnalyzerAction(__FUNCTION__);
+	Expression * result = calloc(1, sizeof(Expression));
+	result->data.resize.image = image;
+	result->data.resize.dimension = strdup(dimension);
+	result->type = RESIZE_IMAGE;
+	return result;
+}
+Expression * RotateImageExpressionSemanticAction(Expression * image, int degrees) {
+	_logSyntacticAnalyzerAction(__FUNCTION__);
+	Expression * result = calloc(1, sizeof(Expression));
+	result->data.numeric_op.image = image;
+	result->data.numeric_op.value = degrees;
+	result->type = ROTATE_IMAGE;
+	return result;
+}
+
+Expression * BrightnessImageExpressionSemanticAction(Expression * image, int amount) {
+	_logSyntacticAnalyzerAction(__FUNCTION__);
+	Expression * result = calloc(1, sizeof(Expression));
+	result->data.numeric_op.image = image;
+	result->data.numeric_op.value = degrees;
+	result->type = BRIGHTNESS_ADJ;
+	return result;
+}
+
+Expression * ContrastImageExpressionSemanticAction(Expression * image, int amount) {
+	_logSyntacticAnalyzerAction(__FUNCTION__);
+	Expression * result = calloc(1, sizeof(Expression));
+	result->data.numeric_op.image = image;
+	result->data.numeric_op.value = degrees;
+	result->type = CONTRAST_ADJ;
+	return result;
+}
+
+Expression * BlurImageExpressionSemanticAction(Expression * image, int amount) {
+	_logSyntacticAnalyzerAction(__FUNCTION__);
+	Expression * result = calloc(1, sizeof(Expression));
+	result->data.numeric_op.image = image;
+	result->data.numeric_op.value = degrees;
+	result->type = BLUR_IMAGE;
+	return result;
+}
+
+Expression * PixelateImageExpressionSemanticAction(Expression * image, int amount) {
+	_logSyntacticAnalyzerAction(__FUNCTION__);
+	Expression * result = calloc(1, sizeof(Expression));
+	result->data.numeric_op.image = image;
+	result->data.numeric_op.value = degrees;
+	result->type = PIXELATE_IMAGE;
+	return result;
+}
+
+Expression * OpacityImageExpressionSemanticAction(Expression * image, int percentage) {
+	_logSyntacticAnalyzerAction(__FUNCTION__);
+	Expression * result = calloc(1, sizeof(Expression));
+	result->data.numeric_op.image = image;
+	result->data.numeric_op.value = degrees;
+	result->type = OPACITY_ADJ;
+	return result;
+}
+
+Expression * FlipImageExpressionSemanticAction(Expression * image, DirectionType orientation) {
+	_logSyntacticAnalyzerAction(__FUNCTION__);
+	Expression * result = calloc(1, sizeof(Expression));
+	result->data.directional_op.image = image;
+	result->data.directional_op.direction = orientation;
+	result->type = FLIP_IMAGE;
+	return result;
+}
+
+Expression * GrayscaleImageExpressionSemanticAction(Expression * image) {
+	_logSyntacticAnalyzerAction(__FUNCTION__);
+	Expression * result = calloc(1, sizeof(Expression));
+	result->data.simple_op.image = image;
+	result->type = GRAYSCALE_IMAGE;
+	return result;
+}
+
+Expression * InvertImageExpressionSemanticAction(Expression * image) {
+	_logSyntacticAnalyzerAction(__FUNCTION__);
+	Expression * result = calloc(1, sizeof(Expression));
+	result->data.simple_op.image = image;
+	result->type = INVERT_IMAGE;
+	return result;
+}
+
+Expression * SharpenImageExpressionSemanticAction(Expression * image) {
+	_logSyntacticAnalyzerAction(__FUNCTION__);
+	Expression * result = calloc(1, sizeof(Expression));
+	result->data.simple_op.image = image;
+	result->type = SHARPEN_IMAGE;
+	return result;
+}
+
+Expression * BlendImageExpressionSemanticAction(Expression * image1, Expression * image2, int amount) {
+	_logSyntacticAnalyzerAction(__FUNCTION__);
+	Expression * result = calloc(1, sizeof(Expression));
+	result->data.dual_op.image1 = image1;
+	result->data.dual_op.image2 = image2;
+	result->data.dual_op.param.blend_factor = amount;
+	result->type = BLEND_IMAGES;
+	return result;
+}
+Expression * MergeImageExpressionSemanticAction(Expression * image1, Expression * image2, DirectionType orientation) {
+	_logSyntacticAnalyzerAction(__FUNCTION__);
+	Expression * result = calloc(1, sizeof(Expression));
+	result->data.dual_op.image1 = image1;
+	result->data.dual_op.image2 = image2;
+	result->data.dual_op.param.direction = orientation;
+	result->type = MERGE_IMAGES;
+	return result;
+}
+Expression * RecolorImageExpressionSemanticAction(Expression * image, const char * sourceColor1, const char * sourceColor2, const char * targetColor) {
+	_logSyntacticAnalyzerAction(__FUNCTION__);
+	Expression * result = calloc(1, sizeof(Expression));
+	result->data.recolor.image = image;
+	result->data.recolor.from_color1 = strdup(sourceColor1);
+	result->data.recolor.from_color2 = strdup(sourceColor2);
+	result->data.recolor.to_color = strdup(targetColor);
+	result->type = RECOLOR_IMAGE;
+	return result;
+}
+ 
 
 // TODO: liberar memoria que se reserva en strings
 

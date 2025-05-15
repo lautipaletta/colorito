@@ -57,7 +57,7 @@ Expression * OpenImageExpressionSemanticAction (const char * filename){
 	_logSyntacticAnalyzerAction(__FUNCTION__);
 	Expression * result = calloc(1, sizeof(Expression));
 	result->filename = strdup(filename);
-	expression->type = OPEN_IMAGE;
+	result->type = OPEN_IMAGE;
 	return result;
 }
 

@@ -15,12 +15,12 @@ void shutdownAbstractSyntaxTreeModule();
  */
 
 typedef enum ExpressionType ExpressionType;
-typedef enum FactorType FactorType;
+//typedef enum FactorType FactorType;
 typedef enum DirectionType DirectionType;
 
 typedef struct Constant Constant;
 typedef struct Expression Expression;
-typedef struct Factor Factor;
+//typedef struct Factor Factor;
 typedef struct Program Program;
 
 /**
@@ -62,10 +62,10 @@ enum ExpressionType {
     RECOLOR_IMAGE   // RECOLOR expression COLOR COLOR TO COLOR SEMICOLON
 };
 
-enum FactorType {
+/*enum FactorType {
     CONSTANT,
     EXPRESSION
-};
+};*/
 
 enum DirectionType {
     HORIZONTAL,
@@ -76,13 +76,17 @@ struct Constant {
     int value;
 };
 
-struct Factor {
+struct Filename {
+    const char *
+}
+
+/*struct Factor {
     union {
         Constant * constant;
         Expression * expression;
     };
     FactorType type;
-};
+};*/
 
 struct Expression {
     ExpressionType type;
@@ -163,7 +167,7 @@ struct Program {
  */
 void releaseConstant(Constant * constant);
 void releaseExpression(Expression * expression);
-void releaseFactor(Factor * factor);
+//void releaseFactor(Factor * factor);
 void releaseProgram(Program * program);
 
 #endif

@@ -99,26 +99,26 @@ typedef char * String;
 program: expression													{ $$ = ExpressionProgramSemanticAction(currentCompilerState(), $1); }
 	;
 
-expression: OPEN string SEMICOLON									{ $$ = OpenImageExpressionSemanticAction($1); }
-	| SAVE expression_with_p string SEMICOLON								{ $$ = SaveImageExpressionSemanticAction($1); }
-	| CROP expression_with_p IN integer GET integer SEMICOLON			{ $$ = CropImageExpressionSemanticAction($1); }
-	| RESIZE expression_with_p TO dimension SEMICOLON
-	| ROTATE expression_with_p BY integer SEMICOLON
-	| BRIGHTNESS expression_with_p BY integer SEMICOLON
-	| CONTRAST expression_with_p BY integer SEMICOLON
-	| BLUR expression_with_p BY integer SEMICOLON
-	| PIXELATE expression_with_p BY integer SEMICOLON
-	| OPACITY expression_with_p percentage SEMICOLON
-	| FLIP expression_with_p orientation SEMICOLON
-	| GRAYSCALE expression_with_p SEMICOLON
-	| INVERT expression_with_p SEMICOLON
-	| SHARPEN expression_with_p SEMICOLON
-	| BLEND expression_with_p WITH expression_with_p USING integer SEMICOLON
-	| MERGE expression_with_p WITH expression_with_p orientation SEMICOLON
-	| RECOLOR expression_with_p color color TO color SEMICOLON
+expression: OPEN string SEMICOLON									{ $$ = OpenImageExpressionSemanticAction($2); }
+	| SAVE factor string SEMICOLON						{ $$ = SaveImageExpressionSemanticAction($2, $3); }
+	| CROP factor IN integer GET integer SEMICOLON		{ $$ = CropImageExpressionSemanticAction($2, $4, $6); }
+	| RESIZE factor TO dimension SEMICOLON				{ $$ = ResizeImageExpressionSemanticAction($2, $4); }
+	| ROTATE factor BY integer SEMICOLON					{ $$ = RotateImageExpressionSemanticAction($2, $4); }
+	| BRIGHTNESS factor BY integer SEMICOLON				{ $$ = BrightnessImageExpressionSemanticAction($2, $4); }
+	| CONTRAST factor BY integer SEMICOLON				{ $$ = ContrastImageExpressionSemanticAction($2, $4); }
+	| BLUR factor BY integer SEMICOLON					{ $$ = BlurImageExpressionSemanticAction($2, $4); }
+	| PIXELATE factor BY integer SEMICOLON				{ $$ = PixelateImageExpressionSemanticAction($2, $4); }
+	| OPACITY factor percentage SEMICOLON				{ $$ = OpacityImageExpressionSemanticAction($2, $3); }
+	| FLIP factor orientation SEMICOLON					{ $$ = FlipImageExpressionSemanticAction($2, $3); }
+	| GRAYSCALE factor SEMICOLON							{ $$ = GrayscaleImageExpressionSemanticAction($2); }
+	| INVERT factor SEMICOLON							{ $$ = InvertImageExpressionSemanticAction($2); }
+	| SHARPEN factor SEMICOLON							{ $$ = SharpenImageExpressionSemanticAction($2); }
+	| BLEND factor WITH factor USING integer SEMICOLON	{ $$ = BlendImageExpressionSemanticAction($2, $4, $6); }
+	| MERGE factor WITH factor orientation SEMICOLON		{ $$ = MergeImageExpressionSemanticAction($2, $4, $5); }
+	| RECOLOR factor color color TO color SEMICOLON		{ $$ = RecolorImageExpressionSemanticAction($2, $3, $4, $6); }
 	;
 
-expression_with_p: OPEN_PARENTHESIS expression CLOSE_PARENTHESIS					{ $$ = ExpressionFactorSemanticAction($2); }
+factor: OPEN_PARENTHESIS expression CLOSE_PARENTHESIS	{ $$ = ExpressionSemanticAction($2); }
 	;
 
 integer: INTEGER													{ $$ = IntegerConstantSemanticAction($1); }
@@ -133,7 +133,7 @@ dimension: DIMENSION													{ $$ = DimensionConstantSemanticAction($1); }
 percentage: PERCENTAGE													{ $$ = PercentageConstantSemanticAction($1); }
 	;
 
-orientation: HORIZONTALLY													{ $$ = OrientationConstantSemanticAction($1); }
+orientation: HORIZONTALLY												{ $$ = OrientationConstantSemanticAction($1); }
 	| VERTICALLY														{ $$ = OrientationConstantSemanticAction($1); }
 	;
 

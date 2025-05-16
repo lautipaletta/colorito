@@ -99,32 +99,27 @@ typedef char * String;
 program: expression										{ $$ = ExpressionProgramSemanticAction(currentCompilerState(), $1); }
 	;
 
-expression: OPEN string SEMICOLON						{ $$ = OpenImageExpressionSemanticAction($2); }
-	| SAVE factor string SEMICOLON						{ $$ = SaveImageExpressionSemanticAction($2, $3); }
-	| CROP factor IN integer GET integer SEMICOLON		{ $$ = CropImageExpressionSemanticAction($2, $4, $6); }
-	| RESIZE factor TO dimension SEMICOLON				{ $$ = ResizeImageExpressionSemanticAction($2, $4); }
-	| ROTATE factor BY integer SEMICOLON				{ $$ = RotateImageExpressionSemanticAction($2, $4); }
-	| BRIGHTNESS factor BY integer SEMICOLON			{ $$ = BrightnessImageExpressionSemanticAction($2, $4); }
-	| CONTRAST factor BY integer SEMICOLON				{ $$ = ContrastImageExpressionSemanticAction($2, $4); }
-	| BLUR factor BY integer SEMICOLON					{ $$ = BlurImageExpressionSemanticAction($2, $4); }
-	| PIXELATE factor BY integer SEMICOLON				{ $$ = PixelateImageExpressionSemanticAction($2, $4); }
-	| OPACITY factor percentage SEMICOLON				{ $$ = OpacityImageExpressionSemanticAction($2, $3); }
+expression: OPEN STRING SEMICOLON						{ $$ = OpenImageExpressionSemanticAction($2); }
+	| SAVE factor STRING SEMICOLON						{ $$ = SaveImageExpressionSemanticAction($2, $3); }
+	| CROP factor IN INTEGER GET INTEGER SEMICOLON		{ $$ = CropImageExpressionSemanticAction($2, $4, $6); }
+	| RESIZE factor TO DIMENSION SEMICOLON				{ $$ = ResizeImageExpressionSemanticAction($2, $4); }
+	| ROTATE factor BY INTEGER SEMICOLON				{ $$ = RotateImageExpressionSemanticAction($2, $4); }
+	| BRIGHTNESS factor BY INTEGER SEMICOLON			{ $$ = BrightnessImageExpressionSemanticAction($2, $4); }
+	| CONTRAST factor BY INTEGER SEMICOLON				{ $$ = ContrastImageExpressionSemanticAction($2, $4); }
+	| BLUR factor BY INTEGER SEMICOLON					{ $$ = BlurImageExpressionSemanticAction($2, $4); }
+	| PIXELATE factor BY INTEGER SEMICOLON				{ $$ = PixelateImageExpressionSemanticAction($2, $4); }
+	| OPACITY factor PERCENTAGE SEMICOLON				{ $$ = OpacityImageExpressionSemanticAction($2, $3); }
 	| FLIP factor orientation SEMICOLON					{ $$ = FlipImageExpressionSemanticAction($2, $3); }
 	| GRAYSCALE factor SEMICOLON						{ $$ = GrayscaleImageExpressionSemanticAction($2); }
 	| INVERT factor SEMICOLON							{ $$ = InvertImageExpressionSemanticAction($2); }
 	| SHARPEN factor SEMICOLON							{ $$ = SharpenImageExpressionSemanticAction($2); }
-	| BLEND factor WITH factor USING integer SEMICOLON	{ $$ = BlendImageExpressionSemanticAction($2, $4, $6); }
+	| BLEND factor WITH factor USING INTEGER SEMICOLON	{ $$ = BlendImageExpressionSemanticAction($2, $4, $6); }
 	| MERGE factor WITH factor orientation SEMICOLON	{ $$ = MergeImageExpressionSemanticAction($2, $4, $5); }
-	| RECOLOR factor color color TO color SEMICOLON		{ $$ = RecolorImageExpressionSemanticAction($2, $3, $4, $6); }
+	| RECOLOR factor COLOR COLOR TO COLOR SEMICOLON		{ $$ = RecolorImageExpressionSemanticAction($2, $3, $4, $6); }
 	;
 
 factor: OPEN_PARENTHESIS expression CLOSE_PARENTHESIS	{ $$ = ExpressionSemanticAction($2); }
 	;
-
-integer: INTEGER 										{ $$ = $1; }
-string: STRING 											{ $$ = strdup($1); }
-dimension: DIMENSION 									{ $$ = strdup($1); }
-percentage: PERCENTAGE 									{ $$ = $1; }
 
 orientation: HORIZONTALLY								{ $$ = HORIZONTAL; }
 	| VERTICALLY										{ $$ = VERTICAL; }
@@ -134,16 +129,3 @@ color: COLOR											{ $$ = strdup($1); }
 	;
 
 %%
-
-// TODO: borrar esto
-factor: OPEN_PARENTHESIS expression CLOSE_PARENTHESIS				{ $$ = ExpressionFactorSemanticAction($2); }
-	| constant														{ $$ = ConstantFactorSemanticAction($1); }
-	;
-
-expression: expression[left] ADD expression[right]					{ $$ = ArithmeticExpressionSemanticAction($left, $right, ADDITION); }
-	| expression[left] DIV expression[right]						{ $$ = ArithmeticExpressionSemanticAction($left, $right, DIVISION); }
-	| expression[left] MUL expression[right]						{ $$ = ArithmeticExpressionSemanticAction($left, $right, MULTIPLICATION); }
-	| expression[left] SUB expression[right]						{ $$ = ArithmeticExpressionSemanticAction($left, $right, SUBTRACTION); }
-	| factor														{ $$ = FactorExpressionSemanticAction($1); }
-	| FLIP expression HORIZONTALLY
-	;

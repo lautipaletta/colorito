@@ -18,7 +18,7 @@ typedef enum ExpressionType ExpressionType;
 //typedef enum FactorType FactorType;
 typedef enum DirectionType DirectionType;
 
-typedef struct Constant Constant;
+//typedef struct Constant Constant;
 typedef struct Expression Expression;
 //typedef struct Factor Factor;
 typedef struct Program Program;
@@ -72,13 +72,9 @@ enum DirectionType {
     VERTICAL
 };
 
-struct Constant {
+/*struct Constant {
     int value;
-};
-
-struct Filename {
-    const char * filename;
-}
+};*/
 
 /*struct Factor {
     union {
@@ -165,7 +161,7 @@ struct Program {
 /**
  * Node recursive destructors.
  */
-void releaseConstant(Constant * constant);
+//void releaseConstant(Constant * constant);
 void releaseExpression(Expression * expression);
 //void releaseFactor(Factor * factor);
 void releaseProgram(Program * program);

@@ -18,9 +18,9 @@ typedef char * String;
 
 	/** Non-terminals. */
 
-	Constant * constant;
+	/**Constant * constant;*/
 	Expression * expression;
-	Factor * factor;
+	/**Factor * factor;*/
 	Program * program;
 }
 

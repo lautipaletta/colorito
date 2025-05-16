@@ -124,8 +124,4 @@ factor: OPEN_PARENTHESIS expression CLOSE_PARENTHESIS	{ $$ = ExpressionSemanticA
 orientation: HORIZONTALLY								{ $$ = HORIZONTAL; }
 	| VERTICALLY										{ $$ = VERTICAL; }
 	;
-
-color: COLOR											{ $$ = strdup($1); }
-	;
-
 %%

@@ -18,24 +18,25 @@ void shutdownAbstractSyntaxTreeModule() {
 
 void releaseExpression(Expression * expression) {
 	logDebugging(_logger, "Executing destructor: %s", __FUNCTION__);
+	logDebugging(_logger, "Liberando expresion en %p", expression);
 	if (expression != NULL) {
 		switch (expression->type) {
 			case OPEN_IMAGE:
-				free(expression->data.open.filename);
+				if(expression->data.open.filename != NULL) free(expression->data.open.filename);
 				break;
 	
 			case SAVE_IMAGE:
-				releaseExpression(expression->data.save.image);
-				free(expression->data.save.filename);
+				releaseFactor(expression->data.save.image);
+				if(expression->data.save.filename != NULL) free(expression->data.save.filename);
 				break;
 	
 			case CROP_IMAGE:
-				releaseExpression(expression->data.crop.image);
+				releaseFactor(expression->data.crop.image);
 				break;
 	
 			case RESIZE_IMAGE:
-				releaseExpression(expression->data.resize.image);
-				free(expression->data.resize.dimension);
+				releaseFactor(expression->data.resize.image);
+				if(expression->data.resize.dimension != NULL) free(expression->data.resize.dimension);
 				break;
 	
 			case ROTATE_IMAGE:
@@ -44,30 +45,30 @@ void releaseExpression(Expression * expression) {
 			case BLUR_IMAGE:
 			case PIXELATE_IMAGE:
 			case OPACITY_ADJ:
-				releaseExpression(expression->data.numeric_op.image);
+				releaseFactor(expression->data.numeric_op.image);
 				break;
 	
 			case FLIP_IMAGE:
-				releaseExpression(expression->data.directional_op.image);
+				releaseFactor(expression->data.directional_op.image);
 				break;
 	
 			case GRAYSCALE_IMAGE:
 			case INVERT_IMAGE:
 			case SHARPEN_IMAGE:
-				releaseExpression(expression->data.simple_op.image);
+				releaseFactor(expression->data.simple_op.image);
 				break;
 	
 			case BLEND_IMAGES:
 			case MERGE_IMAGES:
-				releaseExpression(expression->data.dual_op.image1);
-				releaseExpression(expression->data.dual_op.image2);
+				releaseFactor(expression->data.dual_op.image1);
+				releaseFactor(expression->data.dual_op.image2);
 				break;
 	
 			case RECOLOR_IMAGE:
-				releaseExpression(expression->data.recolor.image);
-				free(expression->data.recolor.from_color1);
-				free(expression->data.recolor.from_color2);
-				free(expression->data.recolor.to_color);
+				releaseFactor(expression->data.recolor.image);
+				if(expression->data.recolor.from_color1 != NULL) free(expression->data.recolor.from_color1);
+				if(expression->data.recolor.from_color2 != NULL) free(expression->data.recolor.from_color2);
+				if(expression->data.recolor.to_color != NULL) free(expression->data.recolor.to_color);
 				break;
 		}
 		free(expression);
@@ -76,6 +77,7 @@ void releaseExpression(Expression * expression) {
 
 void releaseProgram(Program * program) {
 	logDebugging(_logger, "Executing destructor: %s", __FUNCTION__);
+	logDebugging(_logger, "Liberando programa en %p", program);
 	if (program != NULL) {
 		releaseExpression(program->expression);
 		free(program);
@@ -84,6 +86,7 @@ void releaseProgram(Program * program) {
 
 void releaseFactor(Factor * factor) {
 	logDebugging(_logger, "Executing destructor: %s", __FUNCTION__);
+	logDebugging(_logger, "Liberando factor en %p", factor);
 	if (factor != NULL) {
 		releaseExpression(factor->expression);
 		free(factor);

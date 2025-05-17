@@ -79,44 +79,44 @@ struct Expression {
         
         // Para SAVE_IMAGE
         struct {
-            Expression* image;
+            Factor* image;
             char* filename;
         } save;
         
         // Para CROP_IMAGE
         struct {
-            Expression* image;
+            Factor* image;
             int divisions_qty;
 			int output_division;
         } crop;
         
         // Para RESIZE_IMAGE
         struct {
-            Expression* image;
+            Factor* image;
             char* dimension;
         } resize;
         
         // Para operaciones con valor numérico, es tambien para percentage
         struct {
-            Expression* image;
+            Factor* image;
             int value;
         } numeric_op;
         
         // Para operaciones con dirección
         struct {
-            Expression* image;
+            Factor* image;
             Orientation direction;
         } directional_op;
         
         // Para operaciones sin parámetros
         struct {
-            Expression* image;
+            Factor* image;
         } simple_op;
         
         // Para operaciones de dos imágenes
         struct {
-            Expression* image1;
-            Expression* image2;
+            Factor* image1;
+            Factor* image2;
             union {
                 int blend_factor;			// Para BLEND_IMAGES
                 Orientation direction;	// Para MERGE_IMAGES
@@ -125,7 +125,7 @@ struct Expression {
         
         // Para RECOLOR_IMAGE
         struct {
-            Expression* image;
+            Factor* image;
             char* from_color1;
             char* from_color2;
             char* to_color;

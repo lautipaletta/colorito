@@ -38,21 +38,21 @@ Factor * ExpressionSemanticAction(Expression * expression);
  * Expresiones de operaciones de imagen.
  */
 Expression * OpenImageExpressionSemanticAction(const char * filename);
-Expression * SaveImageExpressionSemanticAction(Expression * image, const char * filename);
-Expression * CropImageExpressionSemanticAction(Expression * image, int divisions_qty, int output_division);
-Expression * ResizeImageExpressionSemanticAction(Expression * image, const char * dimension);
-Expression * RotateImageExpressionSemanticAction(Expression * image, int degrees);
-Expression * BrightnessImageExpressionSemanticAction(Expression * image, int amount);
-Expression * ContrastImageExpressionSemanticAction(Expression * image, int amount);
-Expression * BlurImageExpressionSemanticAction(Expression * image, int amount);
-Expression * PixelateImageExpressionSemanticAction(Expression * image, int amount);
-Expression * OpacityImageExpressionSemanticAction(Expression * image, int percentage);
-Expression * FlipImageExpressionSemanticAction(Expression * image, Orientation orientation);
-Expression * GrayscaleImageExpressionSemanticAction(Expression * image);
-Expression * InvertImageExpressionSemanticAction(Expression * image);
-Expression * SharpenImageExpressionSemanticAction(Expression * image);
-Expression * BlendImageExpressionSemanticAction(Expression * image1, Expression * image2, int amount);
-Expression * MergeImageExpressionSemanticAction(Expression * image1, Expression * image2, Orientation orientation);
-Expression * RecolorImageExpressionSemanticAction(Expression * image, const char * sourceColor1, const char * sourceColor2, const char * targetColor);
+Expression * SaveImageExpressionSemanticAction(Factor * image, const char * filename);
+Expression * CropImageExpressionSemanticAction(Factor * image, int divisions_qty, int output_division);
+Expression * ResizeImageExpressionSemanticAction(Factor * image, const char * dimension);
+Expression * RotateImageExpressionSemanticAction(Factor * image, int degrees);
+Expression * BrightnessImageExpressionSemanticAction(Factor * image, int amount);
+Expression * ContrastImageExpressionSemanticAction(Factor * image, int amount);
+Expression * BlurImageExpressionSemanticAction(Factor * image, int amount);
+Expression * PixelateImageExpressionSemanticAction(Factor * image, int amount);
+Expression * OpacityImageExpressionSemanticAction(Factor * image, int percentage);
+Expression * FlipImageExpressionSemanticAction(Factor * image, Orientation orientation);
+Expression * GrayscaleImageExpressionSemanticAction(Factor * image);
+Expression * InvertImageExpressionSemanticAction(Factor * image);
+Expression * SharpenImageExpressionSemanticAction(Factor * image);
+Expression * BlendImageExpressionSemanticAction(Factor * image1, Factor * image2, int amount);
+Expression * MergeImageExpressionSemanticAction(Factor * image1, Factor * image2, Orientation orientation);
+Expression * RecolorImageExpressionSemanticAction(Factor * image, const char * sourceColor1, const char * sourceColor2, const char * targetColor);
 
 #endif

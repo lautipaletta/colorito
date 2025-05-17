@@ -62,7 +62,7 @@ Expression * OpenImageExpressionSemanticAction (const char * filename){
 	return result;
 }
 
-Expression * SaveImageExpressionSemanticAction (Expression * image, const char * filename){
+Expression * SaveImageExpressionSemanticAction (Factor * image, const char * filename){
 	_logSyntacticAnalyzerAction(__FUNCTION__);
 	Expression * result = calloc(1, sizeof(Expression));
 	result->data.save.image = image;
@@ -71,7 +71,7 @@ Expression * SaveImageExpressionSemanticAction (Expression * image, const char *
 	return result;
 }
 
-Expression * CropImageExpressionSemanticAction(Expression * image, int divisions_qty, int output_division) {
+Expression * CropImageExpressionSemanticAction(Factor * image, int divisions_qty, int output_division) {
 	_logSyntacticAnalyzerAction(__FUNCTION__);
 	Expression * result = calloc(1, sizeof(Expression));
 	result->data.crop.image = image;
@@ -81,7 +81,7 @@ Expression * CropImageExpressionSemanticAction(Expression * image, int divisions
 	return result;
 }
 
-Expression * ResizeImageExpressionSemanticAction(Expression * image, const char * dimension) {
+Expression * ResizeImageExpressionSemanticAction(Factor * image, const char * dimension) {
 	_logSyntacticAnalyzerAction(__FUNCTION__);
 	Expression * result = calloc(1, sizeof(Expression));
 	result->data.resize.image = image;
@@ -89,7 +89,7 @@ Expression * ResizeImageExpressionSemanticAction(Expression * image, const char 
 	result->type = RESIZE_IMAGE;
 	return result;
 }
-Expression * RotateImageExpressionSemanticAction(Expression * image, int degrees) {
+Expression * RotateImageExpressionSemanticAction(Factor * image, int degrees) {
 	_logSyntacticAnalyzerAction(__FUNCTION__);
 	Expression * result = calloc(1, sizeof(Expression));
 	result->data.numeric_op.image = image;
@@ -98,7 +98,7 @@ Expression * RotateImageExpressionSemanticAction(Expression * image, int degrees
 	return result;
 }
 
-Expression * BrightnessImageExpressionSemanticAction(Expression * image, int amount) {
+Expression * BrightnessImageExpressionSemanticAction(Factor * image, int amount) {
 	_logSyntacticAnalyzerAction(__FUNCTION__);
 	Expression * result = calloc(1, sizeof(Expression));
 	result->data.numeric_op.image = image;
@@ -107,7 +107,7 @@ Expression * BrightnessImageExpressionSemanticAction(Expression * image, int amo
 	return result;
 }
 
-Expression * ContrastImageExpressionSemanticAction(Expression * image, int amount) {
+Expression * ContrastImageExpressionSemanticAction(Factor * image, int amount) {
 	_logSyntacticAnalyzerAction(__FUNCTION__);
 	Expression * result = calloc(1, sizeof(Expression));
 	result->data.numeric_op.image = image;
@@ -116,7 +116,7 @@ Expression * ContrastImageExpressionSemanticAction(Expression * image, int amoun
 	return result;
 }
 
-Expression * BlurImageExpressionSemanticAction(Expression * image, int amount) {
+Expression * BlurImageExpressionSemanticAction(Factor * image, int amount) {
 	_logSyntacticAnalyzerAction(__FUNCTION__);
 	Expression * result = calloc(1, sizeof(Expression));
 	result->data.numeric_op.image = image;
@@ -125,7 +125,7 @@ Expression * BlurImageExpressionSemanticAction(Expression * image, int amount) {
 	return result;
 }
 
-Expression * PixelateImageExpressionSemanticAction(Expression * image, int amount) {
+Expression * PixelateImageExpressionSemanticAction(Factor * image, int amount) {
 	_logSyntacticAnalyzerAction(__FUNCTION__);
 	Expression * result = calloc(1, sizeof(Expression));
 	result->data.numeric_op.image = image;
@@ -134,7 +134,7 @@ Expression * PixelateImageExpressionSemanticAction(Expression * image, int amoun
 	return result;
 }
 
-Expression * OpacityImageExpressionSemanticAction(Expression * image, int percentage) {
+Expression * OpacityImageExpressionSemanticAction(Factor * image, int percentage) {
 	_logSyntacticAnalyzerAction(__FUNCTION__);
 	Expression * result = calloc(1, sizeof(Expression));
 	result->data.numeric_op.image = image;
@@ -143,7 +143,7 @@ Expression * OpacityImageExpressionSemanticAction(Expression * image, int percen
 	return result;
 }
 
-Expression * FlipImageExpressionSemanticAction(Expression * image, Orientation orientation) {
+Expression * FlipImageExpressionSemanticAction(Factor * image, Orientation orientation) {
 	_logSyntacticAnalyzerAction(__FUNCTION__);
 	Expression * result = calloc(1, sizeof(Expression));
 	result->data.directional_op.image = image;
@@ -152,7 +152,7 @@ Expression * FlipImageExpressionSemanticAction(Expression * image, Orientation o
 	return result;
 }
 
-Expression * GrayscaleImageExpressionSemanticAction(Expression * image) {
+Expression * GrayscaleImageExpressionSemanticAction(Factor * image) {
 	_logSyntacticAnalyzerAction(__FUNCTION__);
 	Expression * result = calloc(1, sizeof(Expression));
 	result->data.simple_op.image = image;
@@ -160,7 +160,7 @@ Expression * GrayscaleImageExpressionSemanticAction(Expression * image) {
 	return result;
 }
 
-Expression * InvertImageExpressionSemanticAction(Expression * image) {
+Expression * InvertImageExpressionSemanticAction(Factor * image) {
 	_logSyntacticAnalyzerAction(__FUNCTION__);
 	Expression * result = calloc(1, sizeof(Expression));
 	result->data.simple_op.image = image;
@@ -168,7 +168,7 @@ Expression * InvertImageExpressionSemanticAction(Expression * image) {
 	return result;
 }
 
-Expression * SharpenImageExpressionSemanticAction(Expression * image) {
+Expression * SharpenImageExpressionSemanticAction(Factor * image) {
 	_logSyntacticAnalyzerAction(__FUNCTION__);
 	Expression * result = calloc(1, sizeof(Expression));
 	result->data.simple_op.image = image;
@@ -176,7 +176,7 @@ Expression * SharpenImageExpressionSemanticAction(Expression * image) {
 	return result;
 }
 
-Expression * BlendImageExpressionSemanticAction(Expression * image1, Expression * image2, int amount) {
+Expression * BlendImageExpressionSemanticAction(Factor * image1, Factor * image2, int amount) {
 	_logSyntacticAnalyzerAction(__FUNCTION__);
 	Expression * result = calloc(1, sizeof(Expression));
 	result->data.dual_op.image1 = image1;
@@ -185,7 +185,7 @@ Expression * BlendImageExpressionSemanticAction(Expression * image1, Expression 
 	result->type = BLEND_IMAGES;
 	return result;
 }
-Expression * MergeImageExpressionSemanticAction(Expression * image1, Expression * image2, Orientation orientation) {
+Expression * MergeImageExpressionSemanticAction(Factor * image1, Factor * image2, Orientation orientation) {
 	_logSyntacticAnalyzerAction(__FUNCTION__);
 	Expression * result = calloc(1, sizeof(Expression));
 	result->data.dual_op.image1 = image1;
@@ -194,7 +194,7 @@ Expression * MergeImageExpressionSemanticAction(Expression * image1, Expression 
 	result->type = MERGE_IMAGES;
 	return result;
 }
-Expression * RecolorImageExpressionSemanticAction(Expression * image, const char * sourceColor1, const char * sourceColor2, const char * targetColor) {
+Expression * RecolorImageExpressionSemanticAction(Factor * image, const char * sourceColor1, const char * sourceColor2, const char * targetColor) {
 	_logSyntacticAnalyzerAction(__FUNCTION__);
 	Expression * result = calloc(1, sizeof(Expression));
 	result->data.recolor.image = image;

@@ -1,1 +1,1 @@
-save(open "./image");
+save(open "image");

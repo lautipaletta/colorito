@@ -94,22 +94,22 @@ program: expression										{ $$ = ExpressionProgramSemanticAction(currentCompi
 	;
 
 expression: OPEN STRING SEMICOLON						{ $$ = OpenImageExpressionSemanticAction($2); }
-	| SAVE factor STRING SEMICOLON						{ $$ = SaveImageExpressionSemanticAction($2, $3); }
-	| CROP factor IN INTEGER GET INTEGER SEMICOLON		{ $$ = CropImageExpressionSemanticAction($2, $4, $6); }
-	| RESIZE factor TO DIMENSION SEMICOLON				{ $$ = ResizeImageExpressionSemanticAction($2, $4); }
-	| ROTATE factor BY INTEGER SEMICOLON				{ $$ = RotateImageExpressionSemanticAction($2, $4); }
-	| BRIGHTNESS factor BY INTEGER SEMICOLON			{ $$ = BrightnessImageExpressionSemanticAction($2, $4); }
-	| CONTRAST factor BY INTEGER SEMICOLON				{ $$ = ContrastImageExpressionSemanticAction($2, $4); }
-	| BLUR factor BY INTEGER SEMICOLON					{ $$ = BlurImageExpressionSemanticAction($2, $4); }
-	| PIXELATE factor BY INTEGER SEMICOLON				{ $$ = PixelateImageExpressionSemanticAction($2, $4); }
-	| OPACITY factor PERCENTAGE SEMICOLON				{ $$ = OpacityImageExpressionSemanticAction($2, $3); }
-	| FLIP factor orientation SEMICOLON					{ $$ = FlipImageExpressionSemanticAction($2, $3); }
-	| GRAYSCALE factor SEMICOLON						{ $$ = GrayscaleImageExpressionSemanticAction($2); }
-	| INVERT factor SEMICOLON							{ $$ = InvertImageExpressionSemanticAction($2); }
-	| SHARPEN factor SEMICOLON							{ $$ = SharpenImageExpressionSemanticAction($2); }
-	| BLEND factor WITH factor USING INTEGER SEMICOLON	{ $$ = BlendImageExpressionSemanticAction($2, $4, $6); }
-	| MERGE factor WITH factor orientation SEMICOLON	{ $$ = MergeImageExpressionSemanticAction($2, $4, $5); }
-	| RECOLOR factor COLOR COLOR TO COLOR SEMICOLON		{ $$ = RecolorImageExpressionSemanticAction($2, $3, $4, $6); }
+	| SAVE factor STRING SEMICOLON						{ $$ = SaveImageExpressionSemanticAction($2->expression, $3); }
+	| CROP factor IN INTEGER GET INTEGER SEMICOLON		{ $$ = CropImageExpressionSemanticAction($2->expression, $4, $6); }
+	| RESIZE factor TO DIMENSION SEMICOLON				{ $$ = ResizeImageExpressionSemanticAction($2->expression, $4); }
+	| ROTATE factor BY INTEGER SEMICOLON				{ $$ = RotateImageExpressionSemanticAction($2->expression, $4); }
+	| BRIGHTNESS factor BY INTEGER SEMICOLON			{ $$ = BrightnessImageExpressionSemanticAction($2->expression, $4); }
+	| CONTRAST factor BY INTEGER SEMICOLON				{ $$ = ContrastImageExpressionSemanticAction($2->expression, $4); }
+	| BLUR factor BY INTEGER SEMICOLON					{ $$ = BlurImageExpressionSemanticAction($2->expression, $4); }
+	| PIXELATE factor BY INTEGER SEMICOLON				{ $$ = PixelateImageExpressionSemanticAction($2->expression, $4); }
+	| OPACITY factor PERCENTAGE SEMICOLON				{ $$ = OpacityImageExpressionSemanticAction($2->expression, $3); }
+	| FLIP factor orientation SEMICOLON					{ $$ = FlipImageExpressionSemanticAction($2->expression, $3); }
+	| GRAYSCALE factor SEMICOLON						{ $$ = GrayscaleImageExpressionSemanticAction($2->expression); }
+	| INVERT factor SEMICOLON							{ $$ = InvertImageExpressionSemanticAction($2->expression); }
+	| SHARPEN factor SEMICOLON							{ $$ = SharpenImageExpressionSemanticAction($2->expression); }
+	| BLEND factor WITH factor USING INTEGER SEMICOLON	{ $$ = BlendImageExpressionSemanticAction($2->expression, $4->expression, $6); }
+	| MERGE factor WITH factor orientation SEMICOLON	{ $$ = MergeImageExpressionSemanticAction($2->expression, $4->expression, $5); }
+	| RECOLOR factor COLOR COLOR TO COLOR SEMICOLON		{ $$ = RecolorImageExpressionSemanticAction($2->expression, $3, $4, $6); }
 	;
 
 factor: OPEN_PARENTHESIS expression CLOSE_PARENTHESIS	{ $$ = ExpressionSemanticAction($2); }

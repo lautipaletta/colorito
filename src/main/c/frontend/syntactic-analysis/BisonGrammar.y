@@ -7,20 +7,18 @@
 // You touch this, and you die.
 %define api.value.union.name SemanticValue
 
-typedef char * String;
-
 %union {
 	/** Terminals. */
 
 	int integer;
 	Token token;
-	String string;
+	char * string;
+	Orientation orientation;
 
 	/** Non-terminals. */
 
-	/**Constant * constant;*/
 	Expression * expression;
-	/**Factor * factor;*/
+	Factor * factor;
 	Program * program;
 }
 
@@ -32,16 +30,12 @@ typedef char * String;
  *
  * @see https://www.gnu.org/software/bison/manual/html_node/Destructor-Decl.html
  */
-%destructor { releaseConstant($$); } <constant>
+
+%destructor { releaseProgram($$); } <program>
 %destructor { releaseExpression($$); } <expression>
 %destructor { releaseFactor($$); } <factor>
 
 /** Terminals. */
-/** %token <token> ADD */
-/** %token <token> DIV */
-/** %token <token> MUL */
-/** %token <token> SUB */
-
 %token <string> STRING
 %token <string> DIMENSION
 %token <string> COLOR
@@ -77,9 +71,9 @@ typedef char * String;
 %token <token> ON
 %token <token> SEMICOLON
 %token <token> UNKNOWN
+%type <orientation> orientation
 
 /** Non-terminals. */
-%type <constant> constant
 %type <expression> expression
 %type <factor> factor
 %type <program> program

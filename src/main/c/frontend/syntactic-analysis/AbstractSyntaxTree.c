@@ -20,15 +20,54 @@ void releaseExpression(Expression * expression) {
 	logDebugging(_logger, "Executing destructor: %s", __FUNCTION__);
 	if (expression != NULL) {
 		switch (expression->type) {
-			case ADDITION:
-			case DIVISION:
-			case MULTIPLICATION:
-			case SUBTRACTION:
-				releaseExpression(expression->leftExpression);
-				releaseExpression(expression->rightExpression);
+			case OPEN_IMAGE:
+				free(expression->data.open.filename);
 				break;
-			case FACTOR:
-				releaseFactor(expression->factor);
+	
+			case SAVE_IMAGE:
+				releaseExpression(expression->data.save.image);
+				free(expression->data.save.filename);
+				break;
+	
+			case CROP_IMAGE:
+				releaseExpression(expression->data.crop.image);
+				break;
+	
+			case RESIZE_IMAGE:
+				releaseExpression(expression->data.resize.image);
+				free(expression->data.resize.dimension);
+				break;
+	
+			case ROTATE_IMAGE:
+			case BRIGHTNESS_ADJ:
+			case CONTRAST_ADJ:
+			case BLUR_IMAGE:
+			case PIXELATE_IMAGE:
+			case OPACITY_ADJ:
+				releaseExpression(expression->data.numeric_op.image);
+				break;
+	
+			case FLIP_IMAGE:
+				releaseExpression(expression->data.directional_op.image);
+				break;
+	
+			case GRAYSCALE_IMAGE:
+			case INVERT_IMAGE:
+			case SHARPEN_IMAGE:
+				releaseExpression(expression->data.simple_op.image);
+				break;
+	
+			case BLEND_IMAGES:
+			case MERGE_IMAGES:
+				releaseExpression(expression->data.dual_op.image1);
+				releaseExpression(expression->data.dual_op.image2);
+				break;
+	
+			case RECOLOR_IMAGE:
+				releaseExpression(expression->data.recolor.image);
+				free(expression->data.recolor.from_color1);
+				free(expression->data.recolor.from_color2);
+				free(expression->data.recolor.to_color);
 				break;
 		}
 		free(expression);
@@ -43,24 +82,10 @@ void releaseProgram(Program * program) {
 	}
 }
 
-/*void releaseFactor(Factor * factor) {
+void releaseFactor(Factor * factor) {
 	logDebugging(_logger, "Executing destructor: %s", __FUNCTION__);
 	if (factor != NULL) {
-		switch (factor->type) {
-			case CONSTANT:
-				releaseConstant(factor->constant);
-				break;
-			case EXPRESSION:
-				releaseExpression(factor->expression);
-				break;
-		}
+		releaseExpression(factor->expression);
 		free(factor);
 	}
 }
-
-void releaseConstant(Constant * constant) {
-	logDebugging(_logger, "Executing destructor: %s", __FUNCTION__);
-	if (constant != NULL) {
-		free(constant);
-	}
-}*/

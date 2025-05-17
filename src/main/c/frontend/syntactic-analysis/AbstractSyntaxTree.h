@@ -15,12 +15,10 @@ void shutdownAbstractSyntaxTreeModule();
  */
 
 typedef enum ExpressionType ExpressionType;
-//typedef enum FactorType FactorType;
-typedef enum DirectionType DirectionType;
+typedef enum Orientation Orientation;
 
-//typedef struct Constant Constant;
 typedef struct Expression Expression;
-//typedef struct Factor Factor;
+typedef struct Factor Factor;
 typedef struct Program Program;
 
 /**
@@ -62,27 +60,14 @@ enum ExpressionType {
     RECOLOR_IMAGE   // RECOLOR expression COLOR COLOR TO COLOR SEMICOLON
 };
 
-/*enum FactorType {
-    CONSTANT,
-    EXPRESSION
-};*/
-
-enum DirectionType {
+enum Orientation {
     HORIZONTAL,
     VERTICAL
 };
 
-/*struct Constant {
-    int value;
-};*/
-
-/*struct Factor {
-    union {
-        Constant * constant;
-        Expression * expression;
-    };
-    FactorType type;
-};*/
+struct Factor {
+    Expression * expression;
+};
 
 struct Expression {
     ExpressionType type;
@@ -111,22 +96,16 @@ struct Expression {
             char* dimension;
         } resize;
         
-        // Para operaciones con valor numérico
+        // Para operaciones con valor numérico, es tambien para percentage
         struct {
             Expression* image;
             int value;
         } numeric_op;
         
-        // Para operaciones con porcentaje
-        // struct {
-        //     Expression* image;
-        //     int percentage;
-        // } percentage_op;
-        
         // Para operaciones con dirección
         struct {
             Expression* image;
-            DirectionType direction;
+            Orientation direction;
         } directional_op;
         
         // Para operaciones sin parámetros
@@ -140,7 +119,7 @@ struct Expression {
             Expression* image2;
             union {
                 int blend_factor;			// Para BLEND_IMAGES
-                DirectionType direction;	// Para MERGE_IMAGES
+                Orientation direction;	// Para MERGE_IMAGES
             } param;
         } dual_op;
         
@@ -161,9 +140,8 @@ struct Program {
 /**
  * Node recursive destructors.
  */
-//void releaseConstant(Constant * constant);
 void releaseExpression(Expression * expression);
-//void releaseFactor(Factor * factor);
+void releaseFactor(Factor * factor);
 void releaseProgram(Program * program);
 
 #endif

@@ -31,8 +31,8 @@ Constant * ColorConstantSemanticAction(const char * value);*/
 /**
  * Expresiones generales.
  */
-Expression * ExpressionSemanticAction(Expression * expression);
 Program * ExpressionProgramSemanticAction(CompilerState * compilerState, Expression * expression);
+Factor * ExpressionSemanticAction(Expression * expression);
 
 /**
  * Expresiones de operaciones de imagen.
@@ -47,12 +47,12 @@ Expression * ContrastImageExpressionSemanticAction(Expression * image, int amoun
 Expression * BlurImageExpressionSemanticAction(Expression * image, int amount);
 Expression * PixelateImageExpressionSemanticAction(Expression * image, int amount);
 Expression * OpacityImageExpressionSemanticAction(Expression * image, int percentage);
-Expression * FlipImageExpressionSemanticAction(Expression * image, DirectionType orientation);
+Expression * FlipImageExpressionSemanticAction(Expression * image, Orientation orientation);
 Expression * GrayscaleImageExpressionSemanticAction(Expression * image);
 Expression * InvertImageExpressionSemanticAction(Expression * image);
 Expression * SharpenImageExpressionSemanticAction(Expression * image);
 Expression * BlendImageExpressionSemanticAction(Expression * image1, Expression * image2, int amount);
-Expression * MergeImageExpressionSemanticAction(Expression * image1, Expression * image2, DirectionType orientation);
+Expression * MergeImageExpressionSemanticAction(Expression * image1, Expression * image2, Orientation orientation);
 Expression * RecolorImageExpressionSemanticAction(Expression * image, const char * sourceColor1, const char * sourceColor2, const char * targetColor);
 
 #endif

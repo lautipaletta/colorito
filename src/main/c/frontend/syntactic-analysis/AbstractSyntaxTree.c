@@ -22,12 +22,12 @@ void releaseExpression(Expression * expression) {
 	if (expression != NULL) {
 		switch (expression->type) {
 			case OPEN_IMAGE:
-				if(expression->data.open.filename != NULL) free(expression->data.open.filename);
+				if(expression->data.open.filename != NULL) free((void*) expression->data.open.filename);
 				break;
 	
 			case SAVE_IMAGE:
 				releaseFactor(expression->data.save.image);
-				if(expression->data.save.filename != NULL) free(expression->data.save.filename);
+				if(expression->data.save.filename != NULL) free((void*) expression->data.save.filename);
 				break;
 	
 			case CROP_IMAGE:
@@ -36,7 +36,7 @@ void releaseExpression(Expression * expression) {
 	
 			case RESIZE_IMAGE:
 				releaseFactor(expression->data.resize.image);
-				if(expression->data.resize.dimension != NULL) free(expression->data.resize.dimension);
+				if(expression->data.resize.dimension != NULL) free((void*) expression->data.resize.dimension);
 				break;
 	
 			case ROTATE_IMAGE:
@@ -66,9 +66,9 @@ void releaseExpression(Expression * expression) {
 	
 			case RECOLOR_IMAGE:
 				releaseFactor(expression->data.recolor.image);
-				if(expression->data.recolor.from_color1 != NULL) free(expression->data.recolor.from_color1);
-				if(expression->data.recolor.from_color2 != NULL) free(expression->data.recolor.from_color2);
-				if(expression->data.recolor.to_color != NULL) free(expression->data.recolor.to_color);
+				if(expression->data.recolor.from_color1 != NULL) free((void*) expression->data.recolor.from_color1);
+				if(expression->data.recolor.from_color2 != NULL) free((void*) expression->data.recolor.from_color2);
+				if(expression->data.recolor.to_color != NULL) free((void*) expression->data.recolor.to_color);
 				break;
 		}
 		free(expression);

@@ -1,1 +1,1 @@
-crop (open "image1") in 4 get 1;
+crop (open "image1";) in 4 get 1;

@@ -57,7 +57,7 @@ Factor * ExpressionSemanticAction(Expression * expression) {
 Expression * OpenImageExpressionSemanticAction (const char * filename){
 	_logSyntacticAnalyzerAction(__FUNCTION__);
 	Expression * result = calloc(1, sizeof(Expression));
-	result->data.open.filename = strdup(filename);
+	result->data.open.filename = filename;
 	result->type = OPEN_IMAGE;
 	return result;
 }
@@ -66,7 +66,7 @@ Expression * SaveImageExpressionSemanticAction (Factor * image, const char * fil
 	_logSyntacticAnalyzerAction(__FUNCTION__);
 	Expression * result = calloc(1, sizeof(Expression));
 	result->data.save.image = image;
-	result->data.save.filename = strdup(filename);
+	result->data.save.filename = filename;
 	result->type = SAVE_IMAGE;
 	return result;
 }
@@ -85,7 +85,7 @@ Expression * ResizeImageExpressionSemanticAction(Factor * image, const char * di
 	_logSyntacticAnalyzerAction(__FUNCTION__);
 	Expression * result = calloc(1, sizeof(Expression));
 	result->data.resize.image = image;
-	result->data.resize.dimension = strdup(dimension);
+	result->data.resize.dimension = dimension;
 	result->type = RESIZE_IMAGE;
 	return result;
 }
@@ -198,9 +198,9 @@ Expression * RecolorImageExpressionSemanticAction(Factor * image, const char * s
 	_logSyntacticAnalyzerAction(__FUNCTION__);
 	Expression * result = calloc(1, sizeof(Expression));
 	result->data.recolor.image = image;
-	result->data.recolor.from_color1 = strdup(sourceColor1);
-	result->data.recolor.from_color2 = strdup(sourceColor2);
-	result->data.recolor.to_color = strdup(targetColor);
+	result->data.recolor.from_color1 = sourceColor1;
+	result->data.recolor.from_color2 = sourceColor2;
+	result->data.recolor.to_color = targetColor;
 	result->type = RECOLOR_IMAGE;
 	return result;
 }

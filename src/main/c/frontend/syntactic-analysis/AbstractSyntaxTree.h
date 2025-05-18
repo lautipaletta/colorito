@@ -74,13 +74,13 @@ struct Expression {
     union {
         // Para OPEN_IMAGE
         struct {
-            char* filename;
+            const char* filename;
         } open;
         
         // Para SAVE_IMAGE
         struct {
             Factor* image;
-            char* filename;
+            const char* filename;
         } save;
         
         // Para CROP_IMAGE
@@ -93,7 +93,7 @@ struct Expression {
         // Para RESIZE_IMAGE
         struct {
             Factor* image;
-            char* dimension;
+            const char* dimension;
         } resize;
         
         // Para operaciones con valor numérico, es tambien para percentage
@@ -126,9 +126,9 @@ struct Expression {
         // Para RECOLOR_IMAGE
         struct {
             Factor* image;
-            char* from_color1;
-            char* from_color2;
-            char* to_color;
+            const char* from_color1;
+            const char* from_color2;
+            const char* to_color;
         } recolor;
     } data;
 };

@@ -1,1 +1,1 @@
-resize (open "image";) to 800x600;
+resize (open "image") to 800x600;

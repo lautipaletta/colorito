@@ -88,26 +88,26 @@
 
 // IMPORTANT: To use λ in the following grammar, use the %empty symbol.
 
-program: expression										{ $$ = ExpressionProgramSemanticAction(currentCompilerState(), $1); }
+program: expression	SEMICOLON									{ $$ = ExpressionProgramSemanticAction(currentCompilerState(), $1); }
 	;
 
-expression: OPEN STRING SEMICOLON						{ $$ = OpenImageExpressionSemanticAction($2); }
-	| SAVE factor STRING SEMICOLON						{ $$ = SaveImageExpressionSemanticAction($2, $3); }
-	| CROP factor IN INTEGER GET INTEGER SEMICOLON		{ $$ = CropImageExpressionSemanticAction($2, $4, $6); }
-	| RESIZE factor TO DIMENSION SEMICOLON				{ $$ = ResizeImageExpressionSemanticAction($2, $4); }
-	| ROTATE factor BY INTEGER SEMICOLON				{ $$ = RotateImageExpressionSemanticAction($2, $4); }
-	| BRIGHTNESS factor BY INTEGER SEMICOLON			{ $$ = BrightnessImageExpressionSemanticAction($2, $4); }
-	| CONTRAST factor BY INTEGER SEMICOLON				{ $$ = ContrastImageExpressionSemanticAction($2, $4); }
-	| BLUR factor BY INTEGER SEMICOLON					{ $$ = BlurImageExpressionSemanticAction($2, $4); }
-	| PIXELATE factor BY INTEGER SEMICOLON				{ $$ = PixelateImageExpressionSemanticAction($2, $4); }
-	| OPACITY factor PERCENTAGE SEMICOLON				{ $$ = OpacityImageExpressionSemanticAction($2, $3); }
-	| FLIP factor orientation SEMICOLON					{ $$ = FlipImageExpressionSemanticAction($2, $3); }
-	| GRAYSCALE factor SEMICOLON						{ $$ = GrayscaleImageExpressionSemanticAction($2); }
-	| INVERT factor SEMICOLON							{ $$ = InvertImageExpressionSemanticAction($2); }
-	| SHARPEN factor SEMICOLON							{ $$ = SharpenImageExpressionSemanticAction($2); }
-	| BLEND factor WITH factor USING INTEGER SEMICOLON	{ $$ = BlendImageExpressionSemanticAction($2, $4, $6); }
-	| MERGE factor WITH factor orientation SEMICOLON	{ $$ = MergeImageExpressionSemanticAction($2, $4, $5); }
-	| RECOLOR factor COLOR COLOR TO COLOR SEMICOLON		{ $$ = RecolorImageExpressionSemanticAction($2, $3, $4, $6); }
+expression: OPEN STRING									{ $$ = OpenImageExpressionSemanticAction($2); }
+	| SAVE factor STRING								{ $$ = SaveImageExpressionSemanticAction($2, $3); }
+	| CROP factor IN INTEGER GET INTEGER				{ $$ = CropImageExpressionSemanticAction($2, $4, $6); }
+	| RESIZE factor TO DIMENSION						{ $$ = ResizeImageExpressionSemanticAction($2, $4); }
+	| ROTATE factor BY INTEGER 							{ $$ = RotateImageExpressionSemanticAction($2, $4); }
+	| BRIGHTNESS factor BY INTEGER						{ $$ = BrightnessImageExpressionSemanticAction($2, $4); }
+	| CONTRAST factor BY INTEGER						{ $$ = ContrastImageExpressionSemanticAction($2, $4); }
+	| BLUR factor BY INTEGER							{ $$ = BlurImageExpressionSemanticAction($2, $4); }
+	| PIXELATE factor BY INTEGER						{ $$ = PixelateImageExpressionSemanticAction($2, $4); }
+	| OPACITY factor PERCENTAGE							{ $$ = OpacityImageExpressionSemanticAction($2, $3); }
+	| FLIP factor orientation							{ $$ = FlipImageExpressionSemanticAction($2, $3); }
+	| GRAYSCALE factor									{ $$ = GrayscaleImageExpressionSemanticAction($2); }
+	| INVERT factor										{ $$ = InvertImageExpressionSemanticAction($2); }
+	| SHARPEN factor									{ $$ = SharpenImageExpressionSemanticAction($2); }
+	| BLEND factor WITH factor USING INTEGER			{ $$ = BlendImageExpressionSemanticAction($2, $4, $6); }
+	| MERGE factor WITH factor orientation				{ $$ = MergeImageExpressionSemanticAction($2, $4, $5); }
+	| RECOLOR factor COLOR COLOR TO COLOR				{ $$ = RecolorImageExpressionSemanticAction($2, $3, $4, $6); }
 	;
 
 factor: OPEN_PARENTHESIS expression CLOSE_PARENTHESIS	{ $$ = ExpressionSemanticAction($2); }

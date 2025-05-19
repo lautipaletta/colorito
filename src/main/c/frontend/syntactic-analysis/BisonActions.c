@@ -31,10 +31,10 @@ static void _logSyntacticAnalyzerAction(const char * functionName) {
 
 /* PUBLIC FUNCTIONS */
 
-Program * ExpressionProgramSemanticAction(CompilerState * compilerState, Expression * expression) {
+Program * ExpressionProgramSemanticAction(CompilerState * compilerState, Line * line) {
 	_logSyntacticAnalyzerAction(__FUNCTION__);
 	Program * program = calloc(1, sizeof(Program));
-	program->expression = expression;
+	program->line = line;
 	compilerState->abstractSyntaxtTree = program;
 	if (0 < flexCurrentContext()) {
 		logError(_logger, "The final context is not the default (0): %d", flexCurrentContext());
@@ -44,6 +44,14 @@ Program * ExpressionProgramSemanticAction(CompilerState * compilerState, Express
 		compilerState->succeed = true;
 	}
 	return program;
+}
+
+Line * ExpressionLineSemanticAction(Expression * expression, Line * next) {
+	_logSyntacticAnalyzerAction(__FUNCTION__);
+	Line * line = calloc(1, sizeof(Line));
+	line->expression = expression;
+	line->next = next;
+	return line;
 }
 
 Factor * ExpressionSemanticAction(Expression * expression) {

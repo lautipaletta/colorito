@@ -31,8 +31,9 @@ Constant * ColorConstantSemanticAction(const char * value);*/
 /**
  * Expresiones generales.
  */
-Program * ExpressionProgramSemanticAction(CompilerState * compilerState, Expression * expression);
+Program * ExpressionProgramSemanticAction(CompilerState * compilerState, Line * line);
 Factor * ExpressionSemanticAction(Expression * expression);
+Line * ExpressionLineSemanticAction(Expression * expression, Line * next);
 
 /**
  * Expresiones de operaciones de imagen.

@@ -1,1 +1,1 @@
-save(open "image") "route";
+save (open "image") "route";

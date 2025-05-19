@@ -20,6 +20,7 @@ typedef enum Orientation Orientation;
 typedef struct Expression Expression;
 typedef struct Factor Factor;
 typedef struct Program Program;
+typedef struct Line Line;
 
 /**
  * Node types for the Abstract Syntax Tree (AST).
@@ -134,8 +135,14 @@ struct Expression {
 };
 
 struct Program {
-	Expression * expression;
+	Line * line;
 };
+
+struct Line {
+    Expression * expression;
+    Line * next;
+};
+
 
 /**
  * Node recursive destructors.
@@ -143,5 +150,6 @@ struct Program {
 void releaseExpression(Expression * expression);
 void releaseFactor(Factor * factor);
 void releaseProgram(Program * program);
+void releaseLine(Line * line);
 
 #endif

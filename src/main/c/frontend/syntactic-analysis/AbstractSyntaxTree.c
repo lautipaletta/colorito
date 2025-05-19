@@ -79,7 +79,7 @@ void releaseProgram(Program * program) {
 	logDebugging(_logger, "Executing destructor: %s", __FUNCTION__);
 	logDebugging(_logger, "Liberando programa en %p", program);
 	if (program != NULL) {
-		releaseExpression(program->expression);
+		releaseLine(program->line);
 		free(program);
 	}
 }
@@ -90,5 +90,23 @@ void releaseFactor(Factor * factor) {
 	if (factor != NULL) {
 		releaseExpression(factor->expression);
 		free(factor);
+	}
+}
+
+void releaseLine(Line * line) {
+	logDebugging(_logger, "Executing destructor: %s", __FUNCTION__);
+	logDebugging(_logger, "Liberando linea en %p", line);
+	if (line != NULL) {
+		// if (line->expression != NULL) {
+        //     releaseExpression(line->expression);
+        //     line->expression = NULL; // Evitar doble liberación
+        // }
+        // Line *nextLine = line->next;
+        // line->next = NULL; // Evitar que el puntero quede colgando
+        // releaseLine(nextLine);
+        // free(line);
+		releaseExpression(line->expression);
+		releaseLine(line->next);
+		free(line);
 	}
 }

@@ -112,6 +112,7 @@ union SemanticValue
 	Expression * expression;
 	Factor * factor;
 	Program * program;
+  Line * line;
 
 #line 117 "BisonGrammar.tab.h"
 

@@ -1,0 +1,4 @@
+open "image";
+save (open "image") "route";
+crop (open "image1") in 4 get 1;
+resize (open "image") to 800x600;

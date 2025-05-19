@@ -20,6 +20,7 @@
 	Expression * expression;
 	Factor * factor;
 	Program * program;
+	Line * line
 }
 
 /**
@@ -77,6 +78,7 @@
 %type <expression> expression
 %type <factor> factor
 %type <program> program
+%type <line> line
 
 /**
  * Precedence and associativity.
@@ -88,7 +90,11 @@
 
 // IMPORTANT: To use λ in the following grammar, use the %empty symbol.
 
-program: expression	SEMICOLON									{ $$ = ExpressionProgramSemanticAction(currentCompilerState(), $1); }
+program: line											{ $$ = ExpressionProgramSemanticAction(currentCompilerState(), $1); }
+	;
+
+line: expression SEMICOLON 								{ $$ = ExpressionLineSemanticAction($1, NULL); }
+	| expression SEMICOLON  line						{ $$ = ExpressionLineSemanticAction($1, $3); }
 	;
 
 expression: OPEN STRING									{ $$ = OpenImageExpressionSemanticAction($2); }

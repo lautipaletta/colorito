@@ -56,4 +56,10 @@ Expression * BlendImageExpressionSemanticAction(Factor * image1, Factor * image2
 Expression * MergeImageExpressionSemanticAction(Factor * image1, Factor * image2, Orientation orientation);
 Expression * RecolorImageExpressionSemanticAction(Factor * image, const char * sourceColor1, const char * sourceColor2, const char * targetColor);
 
+/**
+ * Declaración de variables.
+ */
+Line * VariableDeclarationLineSemanticAction(const char * identifier, Expression * expression, Line * next);
+Factor * VariableFactorSemanticAction(const char * identifier);
+
 #endif

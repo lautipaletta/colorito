@@ -16,6 +16,8 @@ void shutdownAbstractSyntaxTreeModule();
 
 typedef enum ExpressionType ExpressionType;
 typedef enum Orientation Orientation;
+typedef enum FactorType FactorType;
+typedef enum LineType LineType;
 
 typedef struct Expression Expression;
 typedef struct Factor Factor;
@@ -66,8 +68,17 @@ enum Orientation {
     VERTICAL
 };
 
+enum FactorType {
+    FACTOR_EXPRESSION,
+    FACTOR_IDENTIFIER
+};
+
 struct Factor {
-    Expression * expression;
+    FactorType type;
+    union {
+        Expression * expression;
+        const char * identifier;
+    } data;
 };
 
 struct Expression {
@@ -138,8 +149,20 @@ struct Program {
 	Line * line;
 };
 
+enum LineType {
+    LINE_EXPRESSION,
+    LINE_VARIABLE_DECLARATION
+};
+
 struct Line {
-    Expression * expression;
+    LineType type;
+    union {
+        Expression * expression;
+        struct {
+            const char * identifier;
+            Expression * expression;
+        } variable_declaration;
+    } content;
     Line * next;
 };
 

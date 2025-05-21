@@ -67,6 +67,10 @@ static YY_BUFFER_STATE importedExpressionBufferState = NULL;
 "using"             				{ return ImageOperatorLexemeAction(createLexicalAnalyzerContext(), USING); }
 "on"                				{ return ImageOperatorLexemeAction(createLexicalAnalyzerContext(), ON); }
 
+"="                 				{ return OperatorLexemeAction(createLexicalAnalyzerContext(), EQUALS); }
+
+[a-zA-Z_][a-zA-Z0-9_]*				{ return IdentifierLexemeAction(createLexicalAnalyzerContext()); }
+
 (100|[1-9]?[0-9])%					{ return PercentageLexemeAction(createLexicalAnalyzerContext()); }
 
 [[:digit:]]+x[[:digit:]]+ 			{ return DimensionLexemeAction(createLexicalAnalyzerContext()); }

@@ -34,5 +34,7 @@ Token IntegerLexemeAction(LexicalAnalyzerContext * lexicalAnalyzerContext);
 Token ParenthesisLexemeAction(LexicalAnalyzerContext * lexicalAnalyzerContext, Token token);
 Token UnknownLexemeAction(LexicalAnalyzerContext * lexicalAnalyzerContext);
 Token ColorLexemeAction(LexicalAnalyzerContext * lexicalAnalyzerContext);
+Token OperatorLexemeAction(LexicalAnalyzerContext * lexicalAnalyzerContext, Token token);
+Token IdentifierLexemeAction(LexicalAnalyzerContext * lexicalAnalyzerContext);
 
 #endif

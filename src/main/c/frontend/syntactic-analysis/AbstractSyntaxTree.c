@@ -88,14 +88,18 @@ void releaseFactor(Factor * factor) {
 	logDebugging(_logger, "Executing destructor: %s", __FUNCTION__);
 	logDebugging(_logger, "Liberando factor en %p", factor);
 	if (factor != NULL) {
-		releaseExpression(factor->expression);
+		if(factor->type == FACTOR_EXPRESSION) {
+			releaseExpression(factor->data.expression);
+		} else {
+			free((void*) factor->data.identifier);
+		}
 		free(factor);
 	}
 }
 
 void releaseLine(Line * line) {
 	logDebugging(_logger, "Executing destructor: %s", __FUNCTION__);
-	logDebugging(_logger, "Liberando linea en %p", line);
+	logDebugging(_logger, "Liberando line en %p", line);
 	if (line != NULL) {
 		// if (line->expression != NULL) {
         //     releaseExpression(line->expression);
@@ -105,7 +109,12 @@ void releaseLine(Line * line) {
         // line->next = NULL; // Evitar que el puntero quede colgando
         // releaseLine(nextLine);
         // free(line);
-		releaseExpression(line->expression);
+		if(line->type == LINE_EXPRESSION) {
+			releaseExpression(line->content.expression);
+		} else {
+			free((void*) line->content.variable_declaration.identifier);
+			releaseExpression(line->content.variable_declaration.expression);
+		}
 		releaseLine(line->next);
 		free(line);
 	}

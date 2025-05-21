@@ -20,7 +20,7 @@
 	Expression * expression;
 	Factor * factor;
 	Program * program;
-	Line * line
+	Line * line;
 }
 
 /**
@@ -61,6 +61,8 @@
 %token <token> SHARPEN
 %token <token> PIXELATE
 %token <token> BLEND
+%token <token> EQUALS
+%token <string> IDENTIFIER
 %token <token> HORIZONTALLY
 %token <token> VERTICALLY
 %token <token> IN
@@ -95,6 +97,8 @@ program: line											{ $$ = ExpressionProgramSemanticAction(currentCompilerSt
 
 line: expression SEMICOLON 								{ $$ = ExpressionLineSemanticAction($1, NULL); }
 	| expression SEMICOLON  line						{ $$ = ExpressionLineSemanticAction($1, $3); }
+	| IDENTIFIER EQUALS expression SEMICOLON			{ $$ = VariableDeclarationLineSemanticAction($1, $3, NULL); }
+	| IDENTIFIER EQUALS expression SEMICOLON  line		{ $$ = VariableDeclarationLineSemanticAction($1, $3, $5); }
 	;
 
 expression: OPEN STRING									{ $$ = OpenImageExpressionSemanticAction($2); }
@@ -111,12 +115,13 @@ expression: OPEN STRING									{ $$ = OpenImageExpressionSemanticAction($2); }
 	| GRAYSCALE factor									{ $$ = GrayscaleImageExpressionSemanticAction($2); }
 	| INVERT factor										{ $$ = InvertImageExpressionSemanticAction($2); }
 	| SHARPEN factor									{ $$ = SharpenImageExpressionSemanticAction($2); }
-	| BLEND factor WITH factor USING INTEGER			{ $$ = BlendImageExpressionSemanticAction($2, $4, $6); }
+	| BLEND factor WITH factor USING PERCENTAGE			{ $$ = BlendImageExpressionSemanticAction($2, $4, $6); }
 	| MERGE factor WITH factor orientation				{ $$ = MergeImageExpressionSemanticAction($2, $4, $5); }
 	| RECOLOR factor COLOR COLOR TO COLOR				{ $$ = RecolorImageExpressionSemanticAction($2, $3, $4, $6); }
 	;
 
 factor: OPEN_PARENTHESIS expression CLOSE_PARENTHESIS	{ $$ = ExpressionSemanticAction($2); }
+	| IDENTIFIER										{ $$ = VariableFactorSemanticAction($1); }
 	;
 
 orientation: HORIZONTALLY								{ $$ = HORIZONTAL; }

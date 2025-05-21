@@ -83,7 +83,6 @@
 %type <line> line
 %type <variable> variable_string
 %type <variable> variable_integer
-%type <variable> variable_expression
 %type <variable> variable_color
 %type <variable> variable_percentage
 %type <variable> variable_dimension
@@ -144,10 +143,6 @@ variable_string: STRING									{ $$ = StringVariableSemanticAction($1); }
 	;
 
 variable_integer: INTEGER								{ $$ = IntegerVariableSemanticAction($1); }
-	| IDENTIFIER                                           		{ $$ = IdentifierVariableSemanticAction($1); }
-	;
-
-variable_expression: expression							{ $$ = ExpressionVariableSemanticAction($1); }
 	| IDENTIFIER                                           		{ $$ = IdentifierVariableSemanticAction($1); }
 	;
 

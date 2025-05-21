@@ -108,12 +108,12 @@ line: expression SEMICOLON 										{ $$ = ExpressionLineSemanticAction($1, NUL
 	| IDENTIFIER EQUALS variable SEMICOLON  line				{ $$ = VariableDeclarationLineSemanticAction($1, $3, $5); }
 	;
 
-variable: variable_string										{ $$ = $1; }
-	| variable_integer											{ $$ = $1; }
-	| variable_expression										{ $$ = $1; }
-	| variable_color											{ $$ = $1; }
-	| variable_percentage										{ $$ = $1; }
-	| variable_dimension										{ $$ = $1; }
+variable: STRING 												{ $$ = StringVariableSemanticAction($1); }
+	| INTEGER													{ $$ = IntegerVariableSemanticAction($1); }
+	| expression												{ $$ = ExpressionVariableSemanticAction($1); }
+	| COLOR 													{ $$ = ColorVariableSemanticAction($1); }
+	| PERCENTAGE												{ $$ = PercentageVariableSemanticAction($1); }
+	| DIMENSION													{ $$ = DimensionVariableSemanticAction($1); }
 	;
 
 expression: OPEN variable_string								{ $$ = OpenImageExpressionSemanticAction($2); }
@@ -140,7 +140,7 @@ factor: OPEN_PARENTHESIS expression CLOSE_PARENTHESIS	{ $$ = ExpressionSemanticA
 	;
 
 variable_string: STRING									{ $$ = StringVariableSemanticAction($1); }
-	| IDENTIFIER                                           		{ $$ = IdentifierVariableSemanticAction($1); }
+	| IDENTIFIER                                           { $$ = IdentifierVariableSemanticAction($1); }
 	;
 
 variable_integer: INTEGER								{ $$ = IntegerVariableSemanticAction($1); }

@@ -1,0 +1,1 @@
+rotate (open "image") by 80;

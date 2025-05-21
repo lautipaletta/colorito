@@ -1,0 +1,1 @@
+blend (open "image") with (open "image") using 30%;

@@ -1,0 +1,1 @@
+pixelate (open "image") by 10;

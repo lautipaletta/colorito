@@ -1,0 +1,1 @@
+blur (open "image") by 15;

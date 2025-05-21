@@ -1,0 +1,1 @@
+recolor (open "image") #FFFFFF #aaaaaa to #CCCCCC;

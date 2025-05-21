@@ -1,0 +1,1 @@
+merge (open "image") with (open "image") vertically;

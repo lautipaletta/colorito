@@ -1,0 +1,2 @@
+flip (open "image") horizontally;
+flip (open "image") vertically;

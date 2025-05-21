@@ -1,0 +1,1 @@
+opacity (open "image") 50%;

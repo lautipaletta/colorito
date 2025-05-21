@@ -1,0 +1,1 @@
+brightness (open "image") by 5;

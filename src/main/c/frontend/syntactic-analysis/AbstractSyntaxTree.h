@@ -41,11 +41,11 @@ enum ExpressionType {
     
     // Operaciones con porcentaje/entero
     ROTATE_IMAGE,   // ROTATE expression BY integer SEMICOLON
-    BRIGHTNESS_ADJ, // BRIGHTNESS expression BY integer SEMICOLON
-    CONTRAST_ADJ,   // CONTRAST expression BY integer SEMICOLON
+    BRIGHTNESS_IMAGE, // BRIGHTNESS expression BY integer SEMICOLON
+    CONTRAST_IMAGE,   // CONTRAST expression BY integer SEMICOLON
     BLUR_IMAGE,     // BLUR expression BY integer SEMICOLON
     PIXELATE_IMAGE, // PIXELATE expression BY integer SEMICOLON
-    OPACITY_ADJ,    // OPACITY expression PERCENTAGE SEMICOLON
+    OPACITY_IMAGE,    // OPACITY expression PERCENTAGE SEMICOLON
     
     // Operaciones con dirección
     FLIP_IMAGE,     // FLIP expression HORIZONTALLY SEMICOLON

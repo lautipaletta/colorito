@@ -40,11 +40,11 @@ void releaseExpression(Expression * expression) {
 				break;
 	
 			case ROTATE_IMAGE:
-			case BRIGHTNESS_ADJ:
-			case CONTRAST_ADJ:
+			case BRIGHTNESS_IMAGE:
+			case CONTRAST_IMAGE:
 			case BLUR_IMAGE:
 			case PIXELATE_IMAGE:
-			case OPACITY_ADJ:
+			case OPACITY_IMAGE:
 				releaseFactor(expression->data.numeric_op.image);
 				break;
 	

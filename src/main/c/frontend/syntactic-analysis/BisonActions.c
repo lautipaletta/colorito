@@ -116,57 +116,13 @@ Expression * ResizeImageExpressionSemanticAction(Factor * image, const char * di
 	result->type = RESIZE_IMAGE;
 	return result;
 }
-Expression * RotateImageExpressionSemanticAction(Factor * image, int degrees) {
-	_logSyntacticAnalyzerAction(__FUNCTION__);
-	Expression * result = calloc(1, sizeof(Expression));
-	result->data.numeric_op.image = image;
-	result->data.numeric_op.value = degrees;
-	result->type = ROTATE_IMAGE;
-	return result;
-}
 
-Expression * BrightnessImageExpressionSemanticAction(Factor * image, int amount) {
+Expression * ExpressionWithIntegerSemanticAction(Factor * image, int integer, ExpressionType expressionType) {
 	_logSyntacticAnalyzerAction(__FUNCTION__);
 	Expression * result = calloc(1, sizeof(Expression));
 	result->data.numeric_op.image = image;
-	result->data.numeric_op.value = amount;
-	result->type = BRIGHTNESS_ADJ;
-	return result;
-}
-
-Expression * ContrastImageExpressionSemanticAction(Factor * image, int amount) {
-	_logSyntacticAnalyzerAction(__FUNCTION__);
-	Expression * result = calloc(1, sizeof(Expression));
-	result->data.numeric_op.image = image;
-	result->data.numeric_op.value = amount;
-	result->type = CONTRAST_ADJ;
-	return result;
-}
-
-Expression * BlurImageExpressionSemanticAction(Factor * image, int amount) {
-	_logSyntacticAnalyzerAction(__FUNCTION__);
-	Expression * result = calloc(1, sizeof(Expression));
-	result->data.numeric_op.image = image;
-	result->data.numeric_op.value = amount;
-	result->type = BLUR_IMAGE;
-	return result;
-}
-
-Expression * PixelateImageExpressionSemanticAction(Factor * image, int amount) {
-	_logSyntacticAnalyzerAction(__FUNCTION__);
-	Expression * result = calloc(1, sizeof(Expression));
-	result->data.numeric_op.image = image;
-	result->data.numeric_op.value = amount;
-	result->type = PIXELATE_IMAGE;
-	return result;
-}
-
-Expression * OpacityImageExpressionSemanticAction(Factor * image, int percentage) {
-	_logSyntacticAnalyzerAction(__FUNCTION__);
-	Expression * result = calloc(1, sizeof(Expression));
-	result->data.numeric_op.image = image;
-	result->data.numeric_op.value = percentage;
-	result->type = OPACITY_ADJ;
+	result->data.numeric_op.value = integer;
+	result->type = expressionType;
 	return result;
 }
 

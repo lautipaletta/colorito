@@ -1,0 +1,9 @@
+color1 = #FFFFFF;
+color2 = #CCCCCC;
+recolor (open "image") color1 color2 to color3;
+
+image = "Hola";
+open image;
+route = "Image";
+save (open route) route;
+save (open "image") "route";

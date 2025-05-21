@@ -21,6 +21,7 @@
 	Factor * factor;
 	Program * program;
 	Line * line;
+	Variable * variable;
 }
 
 /**
@@ -80,6 +81,13 @@
 %type <factor> factor
 %type <program> program
 %type <line> line
+%type <variable> variable_string
+%type <variable> variable_integer
+%type <variable> variable_expression
+%type <variable> variable_color
+%type <variable> variable_percentage
+%type <variable> variable_dimension
+%type <variable> variable
 
 /**
  * Precedence and associativity.
@@ -91,36 +99,68 @@
 
 // IMPORTANT: To use λ in the following grammar, use the %empty symbol.
 
-program: line											{ $$ = ExpressionProgramSemanticAction(currentCompilerState(), $1); }
+program: line													{ $$ = ExpressionProgramSemanticAction(currentCompilerState(), $1); }
 	;
 
-line: expression SEMICOLON 								{ $$ = ExpressionLineSemanticAction($1, NULL); }
-	| expression SEMICOLON  line						{ $$ = ExpressionLineSemanticAction($1, $3); }
-	| IDENTIFIER EQUALS expression SEMICOLON			{ $$ = VariableDeclarationLineSemanticAction($1, $3, NULL); }
-	| IDENTIFIER EQUALS expression SEMICOLON  line		{ $$ = VariableDeclarationLineSemanticAction($1, $3, $5); }
+line: expression SEMICOLON 										{ $$ = ExpressionLineSemanticAction($1, NULL); }
+	| expression SEMICOLON  line								{ $$ = ExpressionLineSemanticAction($1, $3); }
+	| IDENTIFIER EQUALS variable SEMICOLON						{ $$ = VariableDeclarationLineSemanticAction($1, $3, NULL); }
+	| IDENTIFIER EQUALS variable SEMICOLON  line				{ $$ = VariableDeclarationLineSemanticAction($1, $3, $5); }
 	;
 
-expression: OPEN STRING									{ $$ = OpenImageExpressionSemanticAction($2); }
-	| SAVE factor STRING								{ $$ = SaveImageExpressionSemanticAction($2, $3); }
-	| CROP factor IN INTEGER GET INTEGER				{ $$ = CropImageExpressionSemanticAction($2, $4, $6); }
-	| RESIZE factor TO DIMENSION						{ $$ = ResizeImageExpressionSemanticAction($2, $4); }
-	| ROTATE factor BY INTEGER 							{ $$ = ExpressionWithIntegerSemanticAction($2, $4, ROTATE_IMAGE); }
-	| BRIGHTNESS factor BY INTEGER						{ $$ = ExpressionWithIntegerSemanticAction($2, $4, BRIGHTNESS_IMAGE); }
-	| CONTRAST factor BY INTEGER						{ $$ = ExpressionWithIntegerSemanticAction($2, $4, CONTRAST_IMAGE); }
-	| BLUR factor BY INTEGER							{ $$ = ExpressionWithIntegerSemanticAction($2, $4, BLUR_IMAGE); }
-	| PIXELATE factor BY INTEGER						{ $$ = ExpressionWithIntegerSemanticAction($2, $4, PIXELATE_IMAGE); }
-	| OPACITY factor PERCENTAGE							{ $$ = ExpressionWithIntegerSemanticAction($2, $3, OPACITY_IMAGE); }
-	| FLIP factor orientation							{ $$ = FlipImageExpressionSemanticAction($2, $3); }
-	| GRAYSCALE factor									{ $$ = ExpressionWithOnlyFactorSemanticAction($2, GRAYSCALE_IMAGE); }
-	| INVERT factor										{ $$ = ExpressionWithOnlyFactorSemanticAction($2, INVERT_IMAGE); }
-	| SHARPEN factor									{ $$ = ExpressionWithOnlyFactorSemanticAction($2, SHARPEN_IMAGE); }
-	| BLEND factor WITH factor USING PERCENTAGE			{ $$ = BlendImageExpressionSemanticAction($2, $4, $6); }
-	| MERGE factor WITH factor orientation				{ $$ = MergeImageExpressionSemanticAction($2, $4, $5); }
-	| RECOLOR factor COLOR COLOR TO COLOR				{ $$ = RecolorImageExpressionSemanticAction($2, $3, $4, $6); }
+variable: variable_string										{ $$ = $1; }
+	| variable_integer											{ $$ = $1; }
+	| variable_expression										{ $$ = $1; }
+	| variable_color											{ $$ = $1; }
+	| variable_percentage										{ $$ = $1; }
+	| variable_dimension										{ $$ = $1; }
+	;
+
+expression: OPEN variable_string								{ $$ = OpenImageExpressionSemanticAction($2); }
+	| SAVE factor variable_string								{ $$ = SaveImageExpressionSemanticAction($2, $3); }
+	| CROP factor IN variable_integer GET variable_integer		{ $$ = CropImageExpressionSemanticAction($2, $4, $6); }
+	| RESIZE factor TO variable_dimension						{ $$ = ResizeImageExpressionSemanticAction($2, $4); }
+	| ROTATE factor BY variable_integer 						{ $$ = ExpressionWithIntegerSemanticAction($2, $4, ROTATE_IMAGE); }
+	| BRIGHTNESS factor BY variable_integer						{ $$ = ExpressionWithIntegerSemanticAction($2, $4, BRIGHTNESS_IMAGE); }
+	| CONTRAST factor BY variable_integer						{ $$ = ExpressionWithIntegerSemanticAction($2, $4, CONTRAST_IMAGE); }
+	| BLUR factor BY variable_integer							{ $$ = ExpressionWithIntegerSemanticAction($2, $4, BLUR_IMAGE); }
+	| PIXELATE factor BY variable_integer						{ $$ = ExpressionWithIntegerSemanticAction($2, $4, PIXELATE_IMAGE); }
+	| OPACITY factor variable_percentage						{ $$ = ExpressionWithIntegerSemanticAction($2, $3, OPACITY_IMAGE); }
+	| FLIP factor orientation									{ $$ = FlipImageExpressionSemanticAction($2, $3); }
+	| GRAYSCALE factor											{ $$ = ExpressionWithOnlyFactorSemanticAction($2, GRAYSCALE_IMAGE); }
+	| INVERT factor												{ $$ = ExpressionWithOnlyFactorSemanticAction($2, INVERT_IMAGE); }
+	| SHARPEN factor											{ $$ = ExpressionWithOnlyFactorSemanticAction($2, SHARPEN_IMAGE); }
+	| BLEND factor WITH factor USING variable_percentage		{ $$ = BlendImageExpressionSemanticAction($2, $4, $6); }
+	| MERGE factor WITH factor orientation						{ $$ = MergeImageExpressionSemanticAction($2, $4, $5); }
+	| RECOLOR factor variable_color variable_color TO variable_color	{ $$ = RecolorImageExpressionSemanticAction($2, $3, $4, $6); }
 	;
 
 factor: OPEN_PARENTHESIS expression CLOSE_PARENTHESIS	{ $$ = ExpressionSemanticAction($2); }
 	| IDENTIFIER										{ $$ = VariableFactorSemanticAction($1); }
+	;
+
+variable_string: STRING									{ $$ = StringVariableSemanticAction($1); }
+	| IDENTIFIER                                           		{ $$ = IdentifierVariableSemanticAction($1); }
+	;
+
+variable_integer: INTEGER								{ $$ = IntegerVariableSemanticAction($1); }
+	| IDENTIFIER                                           		{ $$ = IdentifierVariableSemanticAction($1); }
+	;
+
+variable_expression: expression							{ $$ = ExpressionVariableSemanticAction($1); }
+	| IDENTIFIER                                           		{ $$ = IdentifierVariableSemanticAction($1); }
+	;
+
+variable_color: COLOR									{ $$ = ColorVariableSemanticAction($1); }
+	| IDENTIFIER                                           		{ $$ = IdentifierVariableSemanticAction($1); }
+	;
+
+variable_percentage: PERCENTAGE							{ $$ = PercentageVariableSemanticAction($1); }
+	| IDENTIFIER                                           		{ $$ = IdentifierVariableSemanticAction($1); }
+	;
+
+variable_dimension: DIMENSION							{ $$ = DimensionVariableSemanticAction($1); }
+	| IDENTIFIER                                           		{ $$ = IdentifierVariableSemanticAction($1); }
 	;
 
 orientation: HORIZONTALLY								{ $$ = HORIZONTAL; }

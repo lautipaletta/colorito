@@ -38,21 +38,28 @@ Line * ExpressionLineSemanticAction(Expression * expression, Line * next);
 /**
  * Expresiones de operaciones de imagen.
  */
-Expression * OpenImageExpressionSemanticAction(const char * filename);
-Expression * SaveImageExpressionSemanticAction(Factor * image, const char * filename);
-Expression * CropImageExpressionSemanticAction(Factor * image, int divisions_qty, int output_division);
-Expression * ResizeImageExpressionSemanticAction(Factor * image, const char * dimension);
-Expression * ExpressionWithIntegerSemanticAction(Factor * image, int integer, ExpressionType expressionType);
+Expression * OpenImageExpressionSemanticAction(Variable * filename);
+Expression * SaveImageExpressionSemanticAction(Factor * image, Variable * filename);
+Expression * CropImageExpressionSemanticAction(Factor * image, Variable * divisions_qty, Variable * output_division);
+Expression * ResizeImageExpressionSemanticAction(Factor * image, Variable * dimension);
+Expression * ExpressionWithIntegerSemanticAction(Factor * image, Variable * integer, ExpressionType expressionType);
 Expression * FlipImageExpressionSemanticAction(Factor * image, Orientation orientation);
 Expression * ExpressionWithOnlyFactorSemanticAction(Factor * image, ExpressionType expressionType);
-Expression * BlendImageExpressionSemanticAction(Factor * image1, Factor * image2, int amount);
+Expression * BlendImageExpressionSemanticAction(Factor * image1, Factor * image2, Variable * amount);
 Expression * MergeImageExpressionSemanticAction(Factor * image1, Factor * image2, Orientation orientation);
-Expression * RecolorImageExpressionSemanticAction(Factor * image, const char * sourceColor1, const char * sourceColor2, const char * targetColor);
+Expression * RecolorImageExpressionSemanticAction(Factor * image, Variable * sourceColor1, Variable * sourceColor2, Variable * targetColor);
 
 /**
  * Declaración de variables.
  */
-Line * VariableDeclarationLineSemanticAction(const char * identifier, Expression * expression, Line * next);
+Line * VariableDeclarationLineSemanticAction(const char * identifier, Variable * variable, Line * next);
 Factor * VariableFactorSemanticAction(const char * identifier);
+Variable * StringVariableSemanticAction(const char * value);
+Variable * IntegerVariableSemanticAction(int value);
+Variable * ExpressionVariableSemanticAction(Expression * expression);
+Variable * ColorVariableSemanticAction(const char * value);
+Variable * PercentageVariableSemanticAction(int value);
+Variable * DimensionVariableSemanticAction(const char * value);
+Variable * IdentifierVariableSemanticAction(const char * identifier);
 
 #endif

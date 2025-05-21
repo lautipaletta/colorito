@@ -17,12 +17,14 @@ void shutdownAbstractSyntaxTreeModule();
 typedef enum ExpressionType ExpressionType;
 typedef enum Orientation Orientation;
 typedef enum FactorType FactorType;
+typedef enum VariableType VariableType;
 typedef enum LineType LineType;
 
 typedef struct Expression Expression;
 typedef struct Factor Factor;
 typedef struct Program Program;
 typedef struct Line Line;
+typedef struct Variable Variable;
 
 /**
  * Node types for the Abstract Syntax Tree (AST).
@@ -86,62 +88,85 @@ struct Expression {
     union {
         // Para OPEN_IMAGE
         struct {
-            const char* filename;
+            Variable * filename;
         } open;
         
         // Para SAVE_IMAGE
         struct {
-            Factor* image;
-            const char* filename;
+            Factor * image;
+            Variable * filename;
         } save;
         
         // Para CROP_IMAGE
         struct {
-            Factor* image;
-            int divisions_qty;
-			int output_division;
+            Factor * image;
+            Variable * divisions_qty;
+			Variable * output_division;
         } crop;
         
         // Para RESIZE_IMAGE
         struct {
-            Factor* image;
-            const char* dimension;
+            Factor * image;
+            Variable * dimension;
         } resize;
         
         // Para operaciones con valor numérico, es tambien para percentage
         struct {
-            Factor* image;
-            int value;
+            Factor * image;
+            Variable * value;
         } numeric_op;
         
         // Para operaciones con dirección
         struct {
-            Factor* image;
+            Factor * image;
             Orientation direction;
         } directional_op;
         
         // Para operaciones sin parámetros
         struct {
-            Factor* image;
+            Factor * image;
         } simple_op;
         
         // Para operaciones de dos imágenes
         struct {
-            Factor* image1;
-            Factor* image2;
+            Factor * image1;
+            Factor * image2;
             union {
-                int blend_factor;			// Para BLEND_IMAGES
+                Variable * blend_factor;			// Para BLEND_IMAGES
                 Orientation direction;	// Para MERGE_IMAGES
             } param;
         } dual_op;
         
         // Para RECOLOR_IMAGE
         struct {
-            Factor* image;
-            const char* from_color1;
-            const char* from_color2;
-            const char* to_color;
+            Factor * image;
+            Variable * from_color1;
+            Variable * from_color2;
+            Variable * to_color;
         } recolor;
+    } data;
+};
+
+enum VariableType {
+    STRING_TYPE,
+    INTEGER_TYPE,
+    EXPRESSION_TYPE,
+    COLOR_TYPE,
+    PERCENTAGE_TYPE,
+    IDENTIFIER_TYPE,
+    DIMENSION_TYPE
+};
+
+struct Variable {
+    VariableType type;
+    union {
+        const char * identifier;
+        const char * string;
+        int integer;
+        Expression * expression;
+        const char * color;
+        int percentage;
+	    const char * dimension;
     } data;
 };
 
@@ -160,7 +185,7 @@ struct Line {
         Expression * expression;
         struct {
             const char * identifier;
-            Expression * expression;
+            Variable * variable;
         } variable_declaration;
     } content;
     Line * next;
@@ -174,5 +199,6 @@ void releaseExpression(Expression * expression);
 void releaseFactor(Factor * factor);
 void releaseProgram(Program * program);
 void releaseLine(Line * line);
+void releaseVariable(Variable * variable);
 
 #endif

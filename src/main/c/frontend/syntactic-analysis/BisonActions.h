@@ -44,9 +44,7 @@ Expression * CropImageExpressionSemanticAction(Factor * image, int divisions_qty
 Expression * ResizeImageExpressionSemanticAction(Factor * image, const char * dimension);
 Expression * ExpressionWithIntegerSemanticAction(Factor * image, int integer, ExpressionType expressionType);
 Expression * FlipImageExpressionSemanticAction(Factor * image, Orientation orientation);
-Expression * GrayscaleImageExpressionSemanticAction(Factor * image);
-Expression * InvertImageExpressionSemanticAction(Factor * image);
-Expression * SharpenImageExpressionSemanticAction(Factor * image);
+Expression * ExpressionWithOnlyFactorSemanticAction(Factor * image, ExpressionType expressionType);
 Expression * BlendImageExpressionSemanticAction(Factor * image1, Factor * image2, int amount);
 Expression * MergeImageExpressionSemanticAction(Factor * image1, Factor * image2, Orientation orientation);
 Expression * RecolorImageExpressionSemanticAction(Factor * image, const char * sourceColor1, const char * sourceColor2, const char * targetColor);

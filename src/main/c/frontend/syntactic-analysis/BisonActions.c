@@ -135,28 +135,12 @@ Expression * FlipImageExpressionSemanticAction(Factor * image, Orientation orien
 	return result;
 }
 
-Expression * GrayscaleImageExpressionSemanticAction(Factor * image) {
+Expression * ExpressionWithOnlyFactorSemanticAction(Factor * image, ExpressionType expressionType) {
 	_logSyntacticAnalyzerAction(__FUNCTION__);
-	Expression * result = calloc(1, sizeof(Expression));
-	result->data.simple_op.image = image;
-	result->type = GRAYSCALE_IMAGE;
-	return result;
-}
-
-Expression * InvertImageExpressionSemanticAction(Factor * image) {
-	_logSyntacticAnalyzerAction(__FUNCTION__);
-	Expression * result = calloc(1, sizeof(Expression));
-	result->data.simple_op.image = image;
-	result->type = INVERT_IMAGE;
-	return result;
-}
-
-Expression * SharpenImageExpressionSemanticAction(Factor * image) {
-	_logSyntacticAnalyzerAction(__FUNCTION__);
-	Expression * result = calloc(1, sizeof(Expression));
-	result->data.simple_op.image = image;
-	result->type = SHARPEN_IMAGE;
-	return result;
+ 	Expression * result = calloc(1, sizeof(Expression));
+ 	result->data.simple_op.image = image;
+ 	result->type = expressionType;
+ 	return result;
 }
 
 Expression * BlendImageExpressionSemanticAction(Factor * image1, Factor * image2, int amount) {

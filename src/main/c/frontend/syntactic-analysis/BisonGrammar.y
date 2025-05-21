@@ -71,7 +71,6 @@
 %token <token> BY
 %token <token> WITH
 %token <token> USING
-%token <token> ON
 %token <token> SEMICOLON
 %token <token> UNKNOWN
 %type <orientation> orientation

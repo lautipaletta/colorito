@@ -65,7 +65,6 @@ static YY_BUFFER_STATE importedExpressionBufferState = NULL;
 "by"                				{ return ImageOperatorLexemeAction(createLexicalAnalyzerContext(), BY); }
 "with"              				{ return ImageOperatorLexemeAction(createLexicalAnalyzerContext(), WITH); }
 "using"             				{ return ImageOperatorLexemeAction(createLexicalAnalyzerContext(), USING); }
-"on"                				{ return ImageOperatorLexemeAction(createLexicalAnalyzerContext(), ON); }
 
 "="                 				{ return OperatorLexemeAction(createLexicalAnalyzerContext(), EQUALS); }
 

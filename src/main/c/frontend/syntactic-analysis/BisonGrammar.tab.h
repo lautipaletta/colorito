@@ -1,8 +1,8 @@
-/* A Bison parser, made by GNU Bison 3.7.4.  */
+/* A Bison parser, made by GNU Bison 3.8.2.  */
 
 /* Bison interface for Yacc-like parsers in C
 
-   Copyright (C) 1984, 1989-1990, 2000-2015, 2018-2020 Free Software Foundation,
+   Copyright (C) 1984, 1989-1990, 2000-2015, 2018-2021 Free Software Foundation,
    Inc.
 
    This program is free software: you can redistribute it and/or modify
@@ -16,7 +16,7 @@
    GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
+   along with this program.  If not, see <https://www.gnu.org/licenses/>.  */
 
 /* As a special exception, you may create a larger work that contains
    part or all of the Bison parser skeleton and distribute that work
@@ -78,17 +78,19 @@ extern int yydebug;
     SHARPEN = 279,                 /* SHARPEN  */
     PIXELATE = 280,                /* PIXELATE  */
     BLEND = 281,                   /* BLEND  */
-    HORIZONTALLY = 282,            /* HORIZONTALLY  */
-    VERTICALLY = 283,              /* VERTICALLY  */
-    IN = 284,                      /* IN  */
-    GET = 285,                     /* GET  */
-    TO = 286,                      /* TO  */
-    BY = 287,                      /* BY  */
-    WITH = 288,                    /* WITH  */
-    USING = 289,                   /* USING  */
-    ON = 290,                      /* ON  */
-    SEMICOLON = 291,               /* SEMICOLON  */
-    UNKNOWN = 292                  /* UNKNOWN  */
+    EQUALS = 282,                  /* EQUALS  */
+    IDENTIFIER = 283,              /* IDENTIFIER  */
+    HORIZONTALLY = 284,            /* HORIZONTALLY  */
+    VERTICALLY = 285,              /* VERTICALLY  */
+    IN = 286,                      /* IN  */
+    GET = 287,                     /* GET  */
+    TO = 288,                      /* TO  */
+    BY = 289,                      /* BY  */
+    WITH = 290,                    /* WITH  */
+    USING = 291,                   /* USING  */
+    ON = 292,                      /* ON  */
+    SEMICOLON = 293,               /* SEMICOLON  */
+    UNKNOWN = 294                  /* UNKNOWN  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -112,9 +114,9 @@ union SemanticValue
 	Expression * expression;
 	Factor * factor;
 	Program * program;
-  Line * line;
+	Line * line;
 
-#line 117 "BisonGrammar.tab.h"
+#line 120 "BisonGrammar.tab.h"
 
 };
 #line 8 "BisonGrammar.y"
@@ -126,6 +128,8 @@ typedef union SemanticValue YYSTYPE;
 
 extern YYSTYPE yylval;
 
+
 int yyparse (void);
+
 
 #endif /* !YY_YY_BISONGRAMMAR_TAB_H_INCLUDED  */

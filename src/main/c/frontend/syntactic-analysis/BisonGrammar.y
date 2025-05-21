@@ -113,6 +113,7 @@ variable: STRING 												{ $$ = StringVariableSemanticAction($1); }
 	| COLOR 													{ $$ = ColorVariableSemanticAction($1); }
 	| PERCENTAGE												{ $$ = PercentageVariableSemanticAction($1); }
 	| DIMENSION													{ $$ = DimensionVariableSemanticAction($1); }
+	| IDENTIFIER												{ $$ = IdentifierVariableSemanticAction($1); }
 	;
 
 expression: OPEN variable_string								{ $$ = OpenImageExpressionSemanticAction($2); }

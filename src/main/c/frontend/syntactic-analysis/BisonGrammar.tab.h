@@ -88,9 +88,8 @@ extern int yydebug;
     BY = 289,                      /* BY  */
     WITH = 290,                    /* WITH  */
     USING = 291,                   /* USING  */
-    ON = 292,                      /* ON  */
-    SEMICOLON = 293,               /* SEMICOLON  */
-    UNKNOWN = 294                  /* UNKNOWN  */
+    SEMICOLON = 292,               /* SEMICOLON  */
+    UNKNOWN = 293                  /* UNKNOWN  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -116,7 +115,7 @@ union SemanticValue
 	Program * program;
 	Line * line;
 
-#line 120 "BisonGrammar.tab.h"
+#line 119 "BisonGrammar.tab.h"
 
 };
 #line 8 "BisonGrammar.y"

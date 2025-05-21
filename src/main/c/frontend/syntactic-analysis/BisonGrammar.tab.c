@@ -138,15 +138,14 @@ enum yysymbol_kind_t
   YYSYMBOL_BY = 34,                        /* BY  */
   YYSYMBOL_WITH = 35,                      /* WITH  */
   YYSYMBOL_USING = 36,                     /* USING  */
-  YYSYMBOL_ON = 37,                        /* ON  */
-  YYSYMBOL_SEMICOLON = 38,                 /* SEMICOLON  */
-  YYSYMBOL_UNKNOWN = 39,                   /* UNKNOWN  */
-  YYSYMBOL_YYACCEPT = 40,                  /* $accept  */
-  YYSYMBOL_program = 41,                   /* program  */
-  YYSYMBOL_line = 42,                      /* line  */
-  YYSYMBOL_expression = 43,                /* expression  */
-  YYSYMBOL_factor = 44,                    /* factor  */
-  YYSYMBOL_orientation = 45                /* orientation  */
+  YYSYMBOL_SEMICOLON = 37,                 /* SEMICOLON  */
+  YYSYMBOL_UNKNOWN = 38,                   /* UNKNOWN  */
+  YYSYMBOL_YYACCEPT = 39,                  /* $accept  */
+  YYSYMBOL_program = 40,                   /* program  */
+  YYSYMBOL_line = 41,                      /* line  */
+  YYSYMBOL_expression = 42,                /* expression  */
+  YYSYMBOL_factor = 43,                    /* factor  */
+  YYSYMBOL_orientation = 44                /* orientation  */
 };
 typedef enum yysymbol_kind_t yysymbol_kind_t;
 
@@ -477,7 +476,7 @@ union yyalloc
 #define YYLAST   92
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  40
+#define YYNTOKENS  39
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  6
 /* YYNRULES -- Number of rules.  */
@@ -486,7 +485,7 @@ union yyalloc
 #define YYNSTATES  82
 
 /* YYMAXUTOK -- Last valid token kind.  */
-#define YYMAXUTOK   294
+#define YYMAXUTOK   293
 
 
 /* YYTRANSLATE(TOKEN-NUM) -- Symbol number corresponding to TOKEN-NUM
@@ -529,16 +528,16 @@ static const yytype_int8 yytranslate[] =
        5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
       15,    16,    17,    18,    19,    20,    21,    22,    23,    24,
       25,    26,    27,    28,    29,    30,    31,    32,    33,    34,
-      35,    36,    37,    38,    39
+      35,    36,    37,    38
 };
 
 #if YYDEBUG
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
-static const yytype_uint8 yyrline[] =
+static const yytype_int8 yyrline[] =
 {
-       0,    95,    95,    98,    99,   100,   101,   104,   105,   106,
-     107,   108,   109,   110,   111,   112,   113,   114,   115,   116,
-     117,   118,   119,   120,   123,   124,   127,   128
+       0,    94,    94,    97,    98,    99,   100,   103,   104,   105,
+     106,   107,   108,   109,   110,   111,   112,   113,   114,   115,
+     116,   117,   118,   119,   122,   123,   126,   127
 };
 #endif
 
@@ -560,8 +559,8 @@ static const char *const yytname[] =
   "MERGE", "BRIGHTNESS", "CONTRAST", "OPACITY", "INVERT", "GRAYSCALE",
   "RECOLOR", "BLUR", "SHARPEN", "PIXELATE", "BLEND", "EQUALS",
   "IDENTIFIER", "HORIZONTALLY", "VERTICALLY", "IN", "GET", "TO", "BY",
-  "WITH", "USING", "ON", "SEMICOLON", "UNKNOWN", "$accept", "program",
-  "line", "expression", "factor", "orientation", YY_NULLPTR
+  "WITH", "USING", "SEMICOLON", "UNKNOWN", "$accept", "program", "line",
+  "expression", "factor", "orientation", YY_NULLPTR
 };
 
 static const char *
@@ -587,12 +586,12 @@ static const yytype_int8 yypact[] =
 {
        8,    37,     7,     7,     7,     7,     7,     7,     7,     7,
        7,     7,     7,     7,     7,     7,     7,     7,   -10,    41,
-     -29,     4,   -29,    47,   -29,    40,    13,    15,    12,     9,
+     -29,     5,   -29,    47,   -29,    40,    13,    15,    12,     9,
       16,    18,    19,    43,   -29,   -29,    42,    20,   -29,    44,
       39,    47,   -29,     8,    67,   -29,    70,    73,    74,   -29,
      -29,   -29,     7,    75,    76,   -29,    78,    79,    80,     7,
-      46,   -29,   -29,    55,   -29,   -29,     9,   -29,   -29,    56,
-     -29,   -29,    52,     8,    84,   -29,    86,    72,   -29,   -29,
+      50,   -29,   -29,    52,   -29,   -29,     9,   -29,   -29,    46,
+     -29,   -29,    53,     8,    82,   -29,    85,    84,   -29,   -29,
      -29,   -29
 };
 
@@ -636,9 +635,9 @@ static const yytype_int8 yytable[] =
       22,    42,    43,    45,    46,    78,    48,    56,    47,    66,
       55,    52,    53,    54,    57,    60,    72,     1,     2,     3,
        4,     5,     6,     7,     8,     9,    10,    11,    12,    13,
-      14,    15,    16,    17,    59,    62,    63,    64,    58,    81,
-      65,    67,    68,    69,    73,    70,    71,    74,    77,    76,
-      79,    80,    75
+      14,    15,    16,    17,    59,    62,    63,    64,    58,    76,
+      65,    67,    68,    69,    74,    70,    71,    73,    79,    77,
+      80,    81,    75
 };
 
 static const yytype_int8 yycheck[] =
@@ -647,12 +646,12 @@ static const yytype_int8 yycheck[] =
       13,    14,    15,    16,    17,    43,     9,    27,    10,    11,
       12,    13,    14,    15,    16,    17,    18,    19,    20,    21,
       22,    23,    24,    25,    26,    28,    28,    23,    29,    30,
-       3,     0,    38,     3,    31,    73,    34,     5,    33,    52,
+       3,     0,    37,     3,    31,    73,    34,     5,    33,    52,
        7,    35,    34,    34,    34,    41,    59,    10,    11,    12,
       13,    14,    15,    16,    17,    18,    19,    20,    21,    22,
-      23,    24,    25,    26,    35,     8,     6,     4,    34,     7,
-       6,     6,     6,     5,    38,     6,     6,    32,    36,    33,
-       6,     5,    66
+      23,    24,    25,    26,    35,     8,     6,     4,    34,    33,
+       6,     6,     6,     5,    32,     6,     6,    37,     6,    36,
+       5,     7,    66
 };
 
 /* YYSTOS[STATE-NUM] -- The symbol kind of the accessing symbol of
@@ -660,22 +659,22 @@ static const yytype_int8 yycheck[] =
 static const yytype_int8 yystos[] =
 {
        0,    10,    11,    12,    13,    14,    15,    16,    17,    18,
-      19,    20,    21,    22,    23,    24,    25,    26,    28,    41,
-      42,    43,     3,     9,    28,    44,    44,    44,    44,    44,
-      44,    44,    44,    44,    44,    44,    44,    44,    44,    44,
-      44,    27,     0,    38,    43,     3,    31,    33,    34,    29,
-      30,    45,    35,    34,    34,     7,     5,    34,    34,    35,
-      43,    42,     8,     6,     4,     6,    44,     6,     6,     5,
-       6,     6,    44,    38,    32,    45,    33,    36,    42,     6,
+      19,    20,    21,    22,    23,    24,    25,    26,    28,    40,
+      41,    42,     3,     9,    28,    43,    43,    43,    43,    43,
+      43,    43,    43,    43,    43,    43,    43,    43,    43,    43,
+      43,    27,     0,    37,    42,     3,    31,    33,    34,    29,
+      30,    44,    35,    34,    34,     7,     5,    34,    34,    35,
+      42,    41,     8,     6,     4,     6,    43,     6,     6,     5,
+       6,     6,    43,    37,    32,    44,    33,    36,    41,     6,
        5,     7
 };
 
 /* YYR1[RULE-NUM] -- Symbol kind of the left-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr1[] =
 {
-       0,    40,    41,    42,    42,    42,    42,    43,    43,    43,
-      43,    43,    43,    43,    43,    43,    43,    43,    43,    43,
-      43,    43,    43,    43,    44,    44,    45,    45
+       0,    39,    40,    41,    41,    41,    41,    42,    42,    42,
+      42,    42,    42,    42,    42,    42,    42,    42,    42,    42,
+      42,    42,    42,    42,    43,    43,    44,    44
 };
 
 /* YYR2[RULE-NUM] -- Number of symbols on the right-hand side of rule RULE-NUM.  */
@@ -889,19 +888,19 @@ yydestruct (const char *yymsg,
     case YYSYMBOL_program: /* program  */
 #line 35 "BisonGrammar.y"
             { releaseProgram(((*yyvaluep).program)); }
-#line 893 "BisonGrammar.tab.c"
+#line 892 "BisonGrammar.tab.c"
         break;
 
     case YYSYMBOL_expression: /* expression  */
 #line 36 "BisonGrammar.y"
             { releaseExpression(((*yyvaluep).expression)); }
-#line 899 "BisonGrammar.tab.c"
+#line 898 "BisonGrammar.tab.c"
         break;
 
     case YYSYMBOL_factor: /* factor  */
 #line 37 "BisonGrammar.y"
             { releaseFactor(((*yyvaluep).factor)); }
-#line 905 "BisonGrammar.tab.c"
+#line 904 "BisonGrammar.tab.c"
         break;
 
       default:
@@ -1169,163 +1168,163 @@ yyreduce:
   switch (yyn)
     {
   case 2: /* program: line  */
-#line 95 "BisonGrammar.y"
+#line 94 "BisonGrammar.y"
                                                                                                 { (yyval.program) = ExpressionProgramSemanticAction(currentCompilerState(), (yyvsp[0].line)); }
-#line 1175 "BisonGrammar.tab.c"
+#line 1174 "BisonGrammar.tab.c"
     break;
 
   case 3: /* line: expression SEMICOLON  */
-#line 98 "BisonGrammar.y"
+#line 97 "BisonGrammar.y"
                                                                                         { (yyval.line) = ExpressionLineSemanticAction((yyvsp[-1].expression), NULL); }
-#line 1181 "BisonGrammar.tab.c"
+#line 1180 "BisonGrammar.tab.c"
     break;
 
   case 4: /* line: expression SEMICOLON line  */
-#line 99 "BisonGrammar.y"
+#line 98 "BisonGrammar.y"
                                                                                 { (yyval.line) = ExpressionLineSemanticAction((yyvsp[-2].expression), (yyvsp[0].line)); }
-#line 1187 "BisonGrammar.tab.c"
+#line 1186 "BisonGrammar.tab.c"
     break;
 
   case 5: /* line: IDENTIFIER EQUALS expression SEMICOLON  */
-#line 100 "BisonGrammar.y"
+#line 99 "BisonGrammar.y"
                                                                         { (yyval.line) = VariableDeclarationLineSemanticAction((yyvsp[-3].string), (yyvsp[-1].expression), NULL); }
-#line 1193 "BisonGrammar.tab.c"
+#line 1192 "BisonGrammar.tab.c"
     break;
 
   case 6: /* line: IDENTIFIER EQUALS expression SEMICOLON line  */
-#line 101 "BisonGrammar.y"
+#line 100 "BisonGrammar.y"
                                                                 { (yyval.line) = VariableDeclarationLineSemanticAction((yyvsp[-4].string), (yyvsp[-2].expression), (yyvsp[0].line)); }
-#line 1199 "BisonGrammar.tab.c"
+#line 1198 "BisonGrammar.tab.c"
     break;
 
   case 7: /* expression: OPEN STRING  */
-#line 104 "BisonGrammar.y"
+#line 103 "BisonGrammar.y"
                                                                                         { (yyval.expression) = OpenImageExpressionSemanticAction((yyvsp[0].string)); }
-#line 1205 "BisonGrammar.tab.c"
+#line 1204 "BisonGrammar.tab.c"
     break;
 
   case 8: /* expression: SAVE factor STRING  */
-#line 105 "BisonGrammar.y"
+#line 104 "BisonGrammar.y"
                                                                                         { (yyval.expression) = SaveImageExpressionSemanticAction((yyvsp[-1].factor), (yyvsp[0].string)); }
-#line 1211 "BisonGrammar.tab.c"
+#line 1210 "BisonGrammar.tab.c"
     break;
 
   case 9: /* expression: CROP factor IN INTEGER GET INTEGER  */
-#line 106 "BisonGrammar.y"
+#line 105 "BisonGrammar.y"
                                                                         { (yyval.expression) = CropImageExpressionSemanticAction((yyvsp[-4].factor), (yyvsp[-2].integer), (yyvsp[0].integer)); }
-#line 1217 "BisonGrammar.tab.c"
+#line 1216 "BisonGrammar.tab.c"
     break;
 
   case 10: /* expression: RESIZE factor TO DIMENSION  */
-#line 107 "BisonGrammar.y"
+#line 106 "BisonGrammar.y"
                                                                                 { (yyval.expression) = ResizeImageExpressionSemanticAction((yyvsp[-2].factor), (yyvsp[0].string)); }
-#line 1223 "BisonGrammar.tab.c"
+#line 1222 "BisonGrammar.tab.c"
     break;
 
   case 11: /* expression: ROTATE factor BY INTEGER  */
-#line 108 "BisonGrammar.y"
+#line 107 "BisonGrammar.y"
                                                                                         { (yyval.expression) = ExpressionWithIntegerSemanticAction((yyvsp[-2].factor), (yyvsp[0].integer), ROTATE_IMAGE); }
-#line 1229 "BisonGrammar.tab.c"
+#line 1228 "BisonGrammar.tab.c"
     break;
 
   case 12: /* expression: BRIGHTNESS factor BY INTEGER  */
-#line 109 "BisonGrammar.y"
+#line 108 "BisonGrammar.y"
                                                                                 { (yyval.expression) = ExpressionWithIntegerSemanticAction((yyvsp[-2].factor), (yyvsp[0].integer), BRIGHTNESS_IMAGE); }
-#line 1235 "BisonGrammar.tab.c"
+#line 1234 "BisonGrammar.tab.c"
     break;
 
   case 13: /* expression: CONTRAST factor BY INTEGER  */
-#line 110 "BisonGrammar.y"
+#line 109 "BisonGrammar.y"
                                                                                 { (yyval.expression) = ExpressionWithIntegerSemanticAction((yyvsp[-2].factor), (yyvsp[0].integer), CONTRAST_IMAGE); }
-#line 1241 "BisonGrammar.tab.c"
+#line 1240 "BisonGrammar.tab.c"
     break;
 
   case 14: /* expression: BLUR factor BY INTEGER  */
-#line 111 "BisonGrammar.y"
+#line 110 "BisonGrammar.y"
                                                                                         { (yyval.expression) = ExpressionWithIntegerSemanticAction((yyvsp[-2].factor), (yyvsp[0].integer), BLUR_IMAGE); }
-#line 1247 "BisonGrammar.tab.c"
+#line 1246 "BisonGrammar.tab.c"
     break;
 
   case 15: /* expression: PIXELATE factor BY INTEGER  */
-#line 112 "BisonGrammar.y"
+#line 111 "BisonGrammar.y"
                                                                                 { (yyval.expression) = ExpressionWithIntegerSemanticAction((yyvsp[-2].factor), (yyvsp[0].integer), PIXELATE_IMAGE); }
-#line 1253 "BisonGrammar.tab.c"
+#line 1252 "BisonGrammar.tab.c"
     break;
 
   case 16: /* expression: OPACITY factor PERCENTAGE  */
-#line 113 "BisonGrammar.y"
+#line 112 "BisonGrammar.y"
                                                                                         { (yyval.expression) = ExpressionWithIntegerSemanticAction((yyvsp[-1].factor), (yyvsp[0].integer), OPACITY_IMAGE); }
-#line 1259 "BisonGrammar.tab.c"
+#line 1258 "BisonGrammar.tab.c"
     break;
 
   case 17: /* expression: FLIP factor orientation  */
-#line 114 "BisonGrammar.y"
+#line 113 "BisonGrammar.y"
                                                                                         { (yyval.expression) = FlipImageExpressionSemanticAction((yyvsp[-1].factor), (yyvsp[0].orientation)); }
-#line 1265 "BisonGrammar.tab.c"
+#line 1264 "BisonGrammar.tab.c"
     break;
 
   case 18: /* expression: GRAYSCALE factor  */
-#line 115 "BisonGrammar.y"
+#line 114 "BisonGrammar.y"
                                                                                                 { (yyval.expression) = ExpressionWithOnlyFactorSemanticAction((yyvsp[0].factor), GRAYSCALE_IMAGE); }
-#line 1271 "BisonGrammar.tab.c"
+#line 1270 "BisonGrammar.tab.c"
     break;
 
   case 19: /* expression: INVERT factor  */
-#line 116 "BisonGrammar.y"
+#line 115 "BisonGrammar.y"
                                                                                                 { (yyval.expression) = ExpressionWithOnlyFactorSemanticAction((yyvsp[0].factor), INVERT_IMAGE); }
-#line 1277 "BisonGrammar.tab.c"
+#line 1276 "BisonGrammar.tab.c"
     break;
 
   case 20: /* expression: SHARPEN factor  */
-#line 117 "BisonGrammar.y"
+#line 116 "BisonGrammar.y"
                                                                                                 { (yyval.expression) = ExpressionWithOnlyFactorSemanticAction((yyvsp[0].factor), SHARPEN_IMAGE); }
-#line 1283 "BisonGrammar.tab.c"
+#line 1282 "BisonGrammar.tab.c"
     break;
 
   case 21: /* expression: BLEND factor WITH factor USING PERCENTAGE  */
-#line 118 "BisonGrammar.y"
+#line 117 "BisonGrammar.y"
                                                                         { (yyval.expression) = BlendImageExpressionSemanticAction((yyvsp[-4].factor), (yyvsp[-2].factor), (yyvsp[0].integer)); }
-#line 1289 "BisonGrammar.tab.c"
+#line 1288 "BisonGrammar.tab.c"
     break;
 
   case 22: /* expression: MERGE factor WITH factor orientation  */
-#line 119 "BisonGrammar.y"
+#line 118 "BisonGrammar.y"
                                                                         { (yyval.expression) = MergeImageExpressionSemanticAction((yyvsp[-3].factor), (yyvsp[-1].factor), (yyvsp[0].orientation)); }
-#line 1295 "BisonGrammar.tab.c"
+#line 1294 "BisonGrammar.tab.c"
     break;
 
   case 23: /* expression: RECOLOR factor COLOR COLOR TO COLOR  */
-#line 120 "BisonGrammar.y"
+#line 119 "BisonGrammar.y"
                                                                         { (yyval.expression) = RecolorImageExpressionSemanticAction((yyvsp[-4].factor), (yyvsp[-3].string), (yyvsp[-2].string), (yyvsp[0].string)); }
-#line 1301 "BisonGrammar.tab.c"
+#line 1300 "BisonGrammar.tab.c"
     break;
 
   case 24: /* factor: OPEN_PARENTHESIS expression CLOSE_PARENTHESIS  */
-#line 123 "BisonGrammar.y"
+#line 122 "BisonGrammar.y"
                                                         { (yyval.factor) = ExpressionSemanticAction((yyvsp[-1].expression)); }
-#line 1307 "BisonGrammar.tab.c"
+#line 1306 "BisonGrammar.tab.c"
     break;
 
   case 25: /* factor: IDENTIFIER  */
-#line 124 "BisonGrammar.y"
+#line 123 "BisonGrammar.y"
                                                                                                 { (yyval.factor) = VariableFactorSemanticAction((yyvsp[0].string)); }
-#line 1313 "BisonGrammar.tab.c"
+#line 1312 "BisonGrammar.tab.c"
     break;
 
   case 26: /* orientation: HORIZONTALLY  */
-#line 127 "BisonGrammar.y"
+#line 126 "BisonGrammar.y"
                                                                                         { (yyval.orientation) = HORIZONTAL; }
-#line 1319 "BisonGrammar.tab.c"
+#line 1318 "BisonGrammar.tab.c"
     break;
 
   case 27: /* orientation: VERTICALLY  */
-#line 128 "BisonGrammar.y"
+#line 127 "BisonGrammar.y"
                                                                                                 { (yyval.orientation) = VERTICAL; }
-#line 1325 "BisonGrammar.tab.c"
+#line 1324 "BisonGrammar.tab.c"
     break;
 
 
-#line 1329 "BisonGrammar.tab.c"
+#line 1328 "BisonGrammar.tab.c"
 
       default: break;
     }
@@ -1518,4 +1517,4 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 130 "BisonGrammar.y"
+#line 129 "BisonGrammar.y"

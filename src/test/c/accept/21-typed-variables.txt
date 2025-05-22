@@ -1,5 +1,5 @@
 color1 = #FFFFFF;
-color2 = #CCCCCC;
+color2 = 20%;
 recolor (open "image") color1 color2 to color3;
 
 image = "Hola";

@@ -133,7 +133,7 @@ struct Expression {
             Factor * image2;
             union {
                 Variable * blend_factor;			// Para BLEND_IMAGES
-                Orientation direction;	// Para MERGE_IMAGES
+                Orientation direction;	            // Para MERGE_IMAGES
             } param;
         } dual_op;
         

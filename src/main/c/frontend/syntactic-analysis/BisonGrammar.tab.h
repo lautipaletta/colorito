@@ -114,8 +114,9 @@ union SemanticValue
 	Factor * factor;
 	Program * program;
 	Line * line;
+	Variable * variable;
 
-#line 119 "BisonGrammar.tab.h"
+#line 120 "BisonGrammar.tab.h"
 
 };
 #line 8 "BisonGrammar.y"

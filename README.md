@@ -4,7 +4,7 @@
 
 # Aclaraciones sobre Stage 2
 
-Se agregó un archivo ("Stage 2.pdf") que contiene la descripción del diseño propuesto para el stage 2, notar que decidimos eliminar las instrucciones de text y filter
+Se agregó un archivo ("Stage 2.pdf") que contiene la descripción del diseño propuesto para el stage 2, notar que decidimos eliminar las instrucciones de text y filter.
 
 # Flex-Bison-Compiler
 

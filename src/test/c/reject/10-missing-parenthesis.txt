@@ -1,0 +1,2 @@
+image = open "test.jpg";
+save (blur (sharpen image by 50) "output.jpg";

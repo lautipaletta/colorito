@@ -1,0 +1,2 @@
+image = open "test.jpg";
+recolor image #GGGGGG #000000 to #FFFFFF;

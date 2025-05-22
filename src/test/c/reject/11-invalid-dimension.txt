@@ -1,0 +1,2 @@
+image = open "test.jpg";
+resize image to 100xx200;

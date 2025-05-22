@@ -2,6 +2,10 @@
 
 [![✗](https://github.com/agustin-golmar/Flex-Bison-Compiler/actions/workflows/pipeline.yaml/badge.svg?branch=production)](https://github.com/agustin-golmar/Flex-Bison-Compiler/actions/workflows/pipeline.yaml)
 
+# Aclaraciones sobre Stage 2
+
+Se agregó un archivo ("Stage 2.pdf") que contiene la descripción del diseño propuesto para el stage 2, se eliminaron 2 instrucciones que no nos parecieron que aportaran demasiado y se modificaron los ejemplos.
+
 # Flex-Bison-Compiler
 
 A base compiler example, developed with Flex and Bison.

@@ -1,0 +1,2 @@
+image = open "test.jpg";
+opacity image 101%;

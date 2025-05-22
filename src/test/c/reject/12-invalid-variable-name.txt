@@ -1,0 +1,2 @@
+123image = open "test.jpg";
+save 123image "output.jpg";

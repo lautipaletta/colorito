@@ -33,11 +33,13 @@
  * @see https://www.gnu.org/software/bison/manual/html_node/Destructor-Decl.html
  */
 
-%destructor { releaseProgram($$); } <program>
-%destructor { releaseExpression($$); } <expression>
-%destructor { releaseFactor($$); } <factor>
-%destructor { releaseLine($$); } <line>
-%destructor { releaseVariable($$); } <variable>
+/**
+ * %destructor { releaseProgram($$); } <program>
+ * %destructor { releaseExpression($$); } <expression>
+ * %destructor { releaseFactor($$); } <factor>
+ * %destructor { releaseLine($$); } <line>
+ * %destructor { releaseVariable($$); } <variable>
+ */
 
 /** Terminals. */
 %token <string> STRING

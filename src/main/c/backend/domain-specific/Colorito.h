@@ -42,7 +42,7 @@ typedef struct {
 // /**
 //  * Computes the final value of a mathematical expression.
 //  */
-ComputationResult computeProgram(Program * program);
+boolean computeProgram(Program * program);
 
 // /**
 //  * Computes the final value of a mathematical factor.

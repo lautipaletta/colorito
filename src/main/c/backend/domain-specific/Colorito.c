@@ -172,29 +172,18 @@ static boolean _checkLine(Line * line) {
 
 /* === PUBLIC FUNCTION === */
 
-ComputationResult computeProgram(Program * program) {
+boolean computeProgram(Program * program) {
 	logDebugging(_logger, "Iniciando análisis semántico...");
 	_clearSymbolTable();
 	boolean success = program != NULL &&
 	               _checkLine(program->line);
 	if (!success) {
 		logError(_logger, "Análisis semántico fallido.");
-		ComputationResult computationResult = {
-			.succeed = false,
-		};
-		return computationResult;
 	} else {
 		logDebugging(_logger, "Análisis semántico finalizado exitosamente.");
-		ComputationResult computationResult = {
-			.succeed = true,
-		};
-		return computationResult;
 	}
 	_clearSymbolTable();
-	ComputationResult computationResult = {
-		.succeed = success,
-	};
-	return computationResult;
+	return success;
 }
 
 // /** PRIVATE FUNCTIONS */

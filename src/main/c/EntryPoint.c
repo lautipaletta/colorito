@@ -35,23 +35,23 @@ const int main(const int count, const char ** arguments) {
 	};
 	const SyntacticAnalysisStatus syntacticAnalysisStatus = parse(&compilerState);
 	CompilationStatus compilationStatus = SUCCEED;
-	Program * program = compilerState.abstractSyntaxtTree;
 	if (syntacticAnalysisStatus == ACCEPT) {
 		// ----------------------------------------------------------------------------------------
 		// Beginning of the Backend... ------------------------------------------------------------
-		// logDebugging(logger, "Computing expression value...");
-		// ComputationResult computationResult = computeProgram(program);
-		// if (computationResult.succeed) {
-		// 	logDebugging(logger, "Expression value computed successfully.");
-		// 	// compilerState.value = computationResult.value; VALUE YA NO EXISTE
-		// 	// generate(&compilerState);
-		// }
-		// else {
-		// 	logError(logger, "The computation phase rejects the input program.");
-		// 	compilationStatus = FAILED;
-		// }
-	// 	// ...end of the Backend. -----------------------------------------------------------------
-	// 	// ----------------------------------------------------------------------------------------
+		logDebugging(logger, "Computing expression value...");
+		Program * program = compilerState.abstractSyntaxtTree;
+		boolean computationResult = computeProgram(program);
+		if (computationResult) {
+			logDebugging(logger, "Expression value computed successfully.");
+			// compilerState.value = computationResult.value; VALUE YA NO EXISTE
+			// generate(&compilerState);
+		}
+		else {
+			logError(logger, "The computation phase rejects the input program.");
+			compilationStatus = FAILED;
+		}
+		// ...end of the Backend. -----------------------------------------------------------------
+		// ----------------------------------------------------------------------------------------
 		logDebugging(logger, "Releasing AST resources...");
 		releaseProgram(program);
 	}

@@ -97,7 +97,8 @@ void releaseFactor(Factor * factor) {
 		if(factor->type == FACTOR_EXPRESSION) {
 			releaseExpression(factor->data.expression);
 		} else {
-			free((void*) factor->data.identifier);
+			logDebugging(_logger, "Liberando identifier %p (%s)\n", factor->data.identifier, factor->data.identifier);
+			if(factor->data.identifier != NULL) free((void*) factor->data.identifier);
 		}
 		free(factor);
 	}
@@ -112,7 +113,8 @@ void releaseLine(Line * line) {
 				releaseExpression(line->content.expression);
 				break;
 			case LINE_VARIABLE_DECLARATION:
-				free((void*) line->content.variable_declaration.identifier);
+				logDebugging(_logger, "Liberando identifier %p (%s)\n", line->content.variable_declaration.identifier, line->content.variable_declaration.identifier);
+				if(line->content.variable_declaration.identifier != NULL ) free((void*) line->content.variable_declaration.identifier);
 				releaseVariable(line->content.variable_declaration.variable);
 				break;
 		}
@@ -143,7 +145,8 @@ void releaseVariable(Variable * variable) {
 				free((void*) variable->data.dimension);
 				break;
 			case IDENTIFIER_TYPE:
-				free((void*) variable->data.identifier);
+				logDebugging(_logger, "Liberando identifier %p (%s)\n", variable->data.identifier, variable->data.identifier);
+				if(variable->data.identifier != NULL) free((void*) variable->data.identifier);
 				break;
 		}
 		free(variable);

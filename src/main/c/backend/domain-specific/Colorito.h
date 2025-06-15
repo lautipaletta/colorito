@@ -1,30 +1,29 @@
-// #ifndef CALCULATOR_HEADER
-// #define CALCULATOR_HEADER
+#ifndef COLORITO_HEADER
+#define COLORITO_HEADER
 
 // /**
 //  * We reuse the types from the AST for convenience, but you should separate
 //  * the layers of the backend and frontend using another group of
 //  * domain-specific models or DTOs (Data Transfer Objects).
 //  */
-// #include "../../frontend/syntactic-analysis/AbstractSyntaxTree.h"
-// #include "../../shared/Logger.h"
-// #include "../../shared/Type.h"
-// #include <limits.h>
+#include "../../frontend/syntactic-analysis/AbstractSyntaxTree.h"
+#include "../../shared/Logger.h"
+#include "../../shared/Type.h"
+#include <limits.h>
 
 // /** Initialize module's internal state. */
-// void initializeCalculatorModule();
+void initializeColoritoModule();
 
 // /** Shutdown module's internal state. */
-// void shutdownCalculatorModule();
+void shutdownColoritoModule();
 
 // /**
 //  * The result of a computation. It's considered valid only if "succeed" is
 //  * true.
 //  */
-// typedef struct {
-// 	boolean succeed;
-// 	int value;
-// } ComputationResult;
+typedef struct {
+	boolean succeed;
+} ComputationResult;
 
 // typedef ComputationResult (*BinaryOperator)(const int, const int);
 
@@ -43,11 +42,11 @@
 // /**
 //  * Computes the final value of a mathematical expression.
 //  */
-// ComputationResult computeExpression(Expression * expression);
+ComputationResult computeProgram(Program * program);
 
 // /**
 //  * Computes the final value of a mathematical factor.
 //  */
 // ComputationResult computeFactor(Factor * factor);
 
-// #endif
+#endif

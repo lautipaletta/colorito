@@ -1,5 +1,5 @@
 //#include "backend/code-generation/Generator.h"
-//#include "backend/domain-specific/Calculator.h"
+#include "backend/domain-specific/Colorito.h"
 #include "frontend/lexical-analysis/FlexActions.h"
 #include "frontend/syntactic-analysis/AbstractSyntaxTree.h"
 #include "frontend/syntactic-analysis/BisonActions.h"
@@ -20,7 +20,7 @@ const int main(const int count, const char ** arguments) {
 	initializeBisonActionsModule();
 	initializeSyntacticAnalyzerModule();
 	initializeAbstractSyntaxTreeModule();
-	//initializeCalculatorModule();
+	initializeColoritoModule();
 	//initializeGeneratorModule();
 
 	// Logs the arguments of the application.
@@ -32,7 +32,6 @@ const int main(const int count, const char ** arguments) {
 	CompilerState compilerState = {
 		.abstractSyntaxtTree = NULL,
 		.succeed = false,
-		.value = 0
 	};
 	const SyntacticAnalysisStatus syntacticAnalysisStatus = parse(&compilerState);
 	CompilationStatus compilationStatus = SUCCEED;
@@ -40,20 +39,21 @@ const int main(const int count, const char ** arguments) {
 	if (syntacticAnalysisStatus == ACCEPT) {
 		// ----------------------------------------------------------------------------------------
 		// Beginning of the Backend... ------------------------------------------------------------
-	// 	logDebugging(logger, "Computing expression value...");
-	// 	ComputationResult computationResult = computeExpression(program->expression);
-	// 	if (computationResult.succeed) {
-	// 		compilerState.value = computationResult.value;
-	// 		generate(&compilerState);
-	// 	}
-	// 	else {
-	// 		logError(logger, "The computation phase rejects the input program.");
-	// 		compilationStatus = FAILED;
-	// 	}
+		// logDebugging(logger, "Computing expression value...");
+		// ComputationResult computationResult = computeProgram(program);
+		// if (computationResult.succeed) {
+		// 	logDebugging(logger, "Expression value computed successfully.");
+		// 	// compilerState.value = computationResult.value; VALUE YA NO EXISTE
+		// 	// generate(&compilerState);
+		// }
+		// else {
+		// 	logError(logger, "The computation phase rejects the input program.");
+		// 	compilationStatus = FAILED;
+		// }
 	// 	// ...end of the Backend. -----------------------------------------------------------------
 	// 	// ----------------------------------------------------------------------------------------
 		logDebugging(logger, "Releasing AST resources...");
-		//releaseProgram(program);
+		releaseProgram(program);
 	}
 	else {
 		logError(logger, "The syntactic-analysis phase rejects the input program.");
@@ -61,7 +61,7 @@ const int main(const int count, const char ** arguments) {
 	}
 	logDebugging(logger, "Releasing modules resources...");
 	//shutdownGeneratorModule();
-	//shutdownCalculatorModule();
+	shutdownColoritoModule();
 	shutdownAbstractSyntaxTreeModule();
 	shutdownSyntacticAnalyzerModule();
 	shutdownBisonActionsModule();

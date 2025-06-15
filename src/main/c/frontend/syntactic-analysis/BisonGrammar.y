@@ -36,6 +36,8 @@
 %destructor { releaseProgram($$); } <program>
 %destructor { releaseExpression($$); } <expression>
 %destructor { releaseFactor($$); } <factor>
+%destructor { releaseLine($$); } <line>
+%destructor { releaseVariable($$); } <variable>
 
 /** Terminals. */
 %token <string> STRING

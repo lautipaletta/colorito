@@ -129,7 +129,7 @@ static boolean _checkExpression(Expression * expr) {
 		case BLEND_IMAGES:
 			return _checkFactor(expr->data.dual_op.image1) &&
 			       _checkFactor(expr->data.dual_op.image2) &&
-			       _checkVariableWithType(expr->data.dual_op.param.blend_factor, INTEGER_TYPE);
+			       _checkVariableWithType(expr->data.dual_op.param.blend_factor, PERCENTAGE_TYPE);
 
 		case MERGE_IMAGES:
 			return _checkFactor(expr->data.dual_op.image1) &&

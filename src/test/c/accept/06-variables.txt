@@ -1,4 +1,5 @@
-img1 = open "/img/background.jpg";
+img1_file = "/img/background.jpg";
+img1 = open img1_file;
 img2 = open "/img/logo.jpg";
 result = blend img1 with img2 using 50%;
 save result "out/background_logo.jpg";

@@ -21,7 +21,7 @@ const int main(const int count, const char ** arguments) {
 	initializeSyntacticAnalyzerModule();
 	initializeAbstractSyntaxTreeModule();
 	initializeColoritoModule();
-	//initializeGeneratorModule();
+	initializeGeneratorModule();
 
 	// Logs the arguments of the application.
 	for (int k = 0; k < count; ++k) {
@@ -44,7 +44,7 @@ const int main(const int count, const char ** arguments) {
 		if (computationResult) {
 			logDebugging(logger, "Expression value computed successfully.");
 			// compilerState.value = computationResult.value; VALUE YA NO EXISTE
-			// generate(&compilerState);
+			generate(&compilerState);
 		}
 		else {
 			logError(logger, "The computation phase rejects the input program.");

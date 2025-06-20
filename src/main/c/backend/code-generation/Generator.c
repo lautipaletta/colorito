@@ -123,12 +123,12 @@ static void _generateFactor(const unsigned int indentationLevel, Factor * factor
     // Output the factor
     switch (factor->type) {
         case FACTOR_EXPRESSION:
-            _output(indentationLevel, "( ");
-            _generateExpression(indentationLevel, factor->data.expression);
-            _output(indentationLevel, " )");
+            _output(0, "(");
+            _generateExpression(0, factor->data.expression);
+            _output(0, ")");
             break;
         case FACTOR_IDENTIFIER:
-            _output(indentationLevel, "%s", factor->data.identifier);
+            _output(0, "%s", factor->data.identifier);
             break;
         default:
             logError(_logger, "Unknown factor type: %d", factor->type);
@@ -139,25 +139,25 @@ static void _generateVariable(const unsigned int indentationLevel, Variable * va
     // Output the variable
     switch (variable->type) {
         case STRING_TYPE:
-            _output(indentationLevel, "\"%s\"", variable->data.string);
+            _output(0, "\"%s\"", variable->data.string);
             break;
         case INTEGER_TYPE:
-            _output(indentationLevel, "%d", variable->data.integer);
+            _output(0, "%d", variable->data.integer);
             break;
         case EXPRESSION_TYPE:
-            _generateExpression(indentationLevel, variable->data.expression);
+            _generateExpression(0, variable->data.expression);
             break;
         case COLOR_TYPE:
-            _output(indentationLevel, "\"%s\"", variable->data.color);
+            _output(0, "\"%s\"", variable->data.color);
             break;
         case PERCENTAGE_TYPE:
-            _output(indentationLevel, "%.2f", variable->data.percentage / 100.0f);
+            _output(0, "%.2f", variable->data.percentage / 100.0f);
             break;
         case IDENTIFIER_TYPE:
-            _output(indentationLevel, "%s", variable->data.identifier);
+            _output(0, "%s", variable->data.identifier);
             break;
         case DIMENSION_TYPE:
-            _outputDimensionAsTuple(indentationLevel, variable->data.dimension);
+            _outputDimensionAsTuple(0, variable->data.dimension);
             break;
         default:
             logError(_logger, "Unknown variable type: %d", variable->type);
@@ -379,20 +379,27 @@ static void _generateRecolorImageExpression(const unsigned int indentationLevel,
     _output(0, " )");
 }
 
+static void _generatePrologue() {
+    _output(0, "#!/usr/bin/env python3\n");
+    _output(0, "from image_ops import *\n");
+    _output(0, "\n");
+}
+
+
 /** PUBLIC FUNCTIONS */
 
 void generate(CompilerState * compilerState) {
 	logDebugging(_logger, "Generating final output...");
 
     // TODO: allow other file names to output
-    _outputFile = fopen("output.txt", "w");
+    _outputFile = fopen("src/main/python/generated_code.py", "w");
     if (!_outputFile) {
         logError(_logger, "Could not open output file. Using stdout instead.");
         _outputFile = stdout;
     }
 
-	// _generatePrologue();        // TODO: imports here
+	_generatePrologue();
 	_generateProgram(compilerState->abstractSyntaxtTree);
-	// _generateEpilogue(compilerState->value); // value does not exist in the anymore it was for calculator
+	// _generateEpilogue(compilerState->value);
 	logDebugging(_logger, "Generation is done.");
 }

@@ -1,4 +1,0 @@
-OPEN("image");
-SAVE(( OPEN("image") ), "route");
-CROP(( OPEN("image1") ), 4, 1);
-RESIZE(( OPEN("image") ), (800, 600));

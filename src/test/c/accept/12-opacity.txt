@@ -1,1 +1,2 @@
-opacity (open "image") 50%;
+img = opacity (open "generated_code_tests/input/prueba.png") 50%;
+save img "generated_code_tests/output/opacity_result.png";

@@ -1,4 +1,4 @@
-//#include "backend/code-generation/Generator.h"
+#include "backend/code-generation/Generator.h"
 #include "backend/domain-specific/Colorito.h"
 #include "frontend/lexical-analysis/FlexActions.h"
 #include "frontend/syntactic-analysis/AbstractSyntaxTree.h"

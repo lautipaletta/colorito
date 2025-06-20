@@ -5,10 +5,10 @@ from PIL import Image
 from image_ops import grayscale_image, save_image, open_image
 
 def test_grayscale_image():
-    img = open_image("test/python/input/prueba.jpg")
+    img = open_image("test/python/input/prueba.png")
     gray = grayscale_image(img)
     os.makedirs("test/python/output", exist_ok=True)
-    save_image(gray, "test/python/output/grayscale_image_result.jpg")
+    save_image(gray, "test/python/output/grayscale_image_result.png")
     print("test_grayscale_image: OK")
 
 if __name__ == "__main__":

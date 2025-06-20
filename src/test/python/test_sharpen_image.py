@@ -5,10 +5,10 @@ from PIL import Image
 from image_ops import sharpen_image, save_image, open_image
 
 def test_sharpen_image():
-    img = open_image("test/python/input/prueba.jpg")
+    img = open_image("test/python/input/prueba.png")
     sharpened = sharpen_image(img)
     os.makedirs("test/python/output", exist_ok=True)
-    save_image(sharpened, "test/python/output/sharpen_image_result.jpg")
+    save_image(sharpened, "test/python/output/sharpen_image_result.png")
     print("test_sharpen_image: OK")
 
 if __name__ == "__main__":

@@ -1,7 +1,7 @@
-img1 = open "/img/background.jpg"; /* image de fondo */
-img2 = open "/img/logo.jpg";
+img1 = open "/img/background.png"; /* image de fondo */
+img2 = open "/img/logo.png";
 result = blend img1 with img2 using 50%; /*resultado haciendo blend */
-save result "out/background_logo.jpg";
+save result "out/background_logo.png";
 /* 
     ejemplo
     de un código

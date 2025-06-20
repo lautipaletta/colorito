@@ -20,7 +20,7 @@ def open_image(path: str) -> Image.Image:
     :param path: Path to the image file.
     :return: PIL.Image.Image object
     Example usage:
-        img = open_image("image.jpg")
+        img = open_image("image.png")
     Example of manual creation:
         from PIL import Image
         img = Image.new("RGB", (100, 100), color="white")
@@ -34,7 +34,7 @@ def save_image(img: Image.Image, path: str) -> None:
     :param img: PIL.Image.Image object
     :param path: Destination path for the image file
     Example usage:
-        save_image(img, "new_image.jpg")
+        save_image(img, "new_image.png")
     """
     logger.info(f"Saving image to: {path}")
     img.save(path)

@@ -1,2 +1,2 @@
-123image = open "test.jpg";
-save 123image "output.jpg";
+123image = open "test.png";
+save 123image "output.png";

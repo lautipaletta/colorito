@@ -17,7 +17,7 @@ void initializeGeneratorModule() {
 // 	}
 // }
 
-// /** PRIVATE FUNCTIONS */
+/** PRIVATE FUNCTIONS */
 
 // static void _generateEpilogue(const int value);
 // static void _generatePrologue(void);
@@ -31,6 +31,7 @@ static void _generateVariable(const unsigned int indentationLevel, Variable * va
 
 static char * _indentation(const unsigned int indentationLevel);
 static void _output(const unsigned int indentationLevel, const char * const format, ...);
+static void _outputDimensionAsTuple(const unsigned int indentationLevel, const char * dimension);
 
 static void _generateCropExpression(const unsigned int indentationLevel, Expression * expression);
 static void _generateOpenExpression(const unsigned int indentationLevel, Expression * expression);
@@ -49,6 +50,7 @@ static void _generateSharpenExpression(const unsigned int indentationLevel, Expr
 static void _generateBlendImagesExpression(const unsigned int indentationLevel, Expression * expression);
 static void _generateMergeImagesExpression(const unsigned int indentationLevel, Expression * expression);
 static void _generateRecolorImageExpression(const unsigned int indentationLevel, Expression * expression);
+
 
 /**
  * Generates an indentation string for the specified level.
@@ -72,6 +74,15 @@ static void _output(const unsigned int indentationLevel, const char * const form
 	free(effectiveFormat);
 	free(indentation);
 	va_end(arguments);
+}
+
+static void _outputDimensionAsTuple(const unsigned int indentationLevel, const char * dimension) {
+    int width = 0, height = 0;
+    if (dimension && sscanf(dimension, "%dx%d", &width, &height) == 2) {
+        _output(indentationLevel, "(%d, %d)", width, height);
+    } else {
+        _output(indentationLevel, "(0, 0)");
+    }
 }
 
 static void _generateProgram(Program * program) {
@@ -104,39 +115,9 @@ static void _generateLines(const unsigned int indentationLevel, Line * line) {
  */
 static void _generateVariableDeclaration(const unsigned int indentationLevel, const char * identifier, Variable * variable) {
     // Output the variable declaration
-    switch (variable->type) {
-        case STRING_TYPE:
-            _output(indentationLevel, "%s %s = ", "String", identifier);
-            _output(0, "\"%s\";", variable->data.string);
-            break;
-        case INTEGER_TYPE:
-            _output(indentationLevel, "%s %s = ", "int", identifier);
-            _output(0, "%d;", variable->data.integer);
-            break;
-        case EXPRESSION_TYPE:
-            _output(indentationLevel, "%s %s = ", "Expression", identifier);        
-            _generateExpression(indentationLevel, variable->data.expression);
-            _output(0, ";");
-            break;
-        case COLOR_TYPE:
-            _output(indentationLevel, "%s %s = ", "Color", identifier);
-            _output(0, "color(%s);", variable->data.color);
-            break;
-        case PERCENTAGE_TYPE:
-            _output(indentationLevel, "%s %s = ", "Percentage", identifier);
-            _output(0, "%d%%;", variable->data.percentage);
-            break;
-        case IDENTIFIER_TYPE:
-            _output(indentationLevel, "%s %s = ", "Identifier", identifier);
-            _output(0, "%s;", variable->data.identifier);
-            break;
-        case DIMENSION_TYPE:
-            _output(indentationLevel, "%s %s = ", "Dimension", identifier);
-            _output(0, "%s;", variable->data.dimension);
-            break;
-        default:
-            logError(_logger, "Unknown variable type: %d", variable->type);
-    }
+    _output(indentationLevel, "%s = ", identifier);
+    _generateVariable(0, variable);
+    _output(0, ";");
 }
 
 static void _generateFactor(const unsigned int indentationLevel, Factor * factor) {
@@ -168,16 +149,16 @@ static void _generateVariable(const unsigned int indentationLevel, Variable * va
             _generateExpression(indentationLevel, variable->data.expression);
             break;
         case COLOR_TYPE:
-            _output(indentationLevel, "color(%s)", variable->data.color);
+            _output(indentationLevel, "\"%s\"", variable->data.color);
             break;
         case PERCENTAGE_TYPE:
-            _output(indentationLevel, "%d%%", variable->data.percentage);
+            _output(indentationLevel, "%.2f", variable->data.percentage / 100.0f);
             break;
         case IDENTIFIER_TYPE:
             _output(indentationLevel, "%s", variable->data.identifier);
             break;
         case DIMENSION_TYPE:
-            _output(indentationLevel, "%s", variable->data.dimension);
+            _outputDimensionAsTuple(indentationLevel, variable->data.dimension);
             break;
         default:
             logError(_logger, "Unknown variable type: %d", variable->type);
@@ -244,7 +225,7 @@ static void _generateExpression(const unsigned int indentationLevel, Expression 
 }
 
 static void _generateCropExpression(const unsigned int indentationLevel, Expression * expression) {
-    _output(indentationLevel, "crop_image(");
+    _output(indentationLevel, "CROP(");
     _generateFactor(indentationLevel, expression->data.crop.image);
     _output(0, ", ");
     _generateVariable(indentationLevel, expression->data.crop.divisions_qty);
@@ -254,85 +235,85 @@ static void _generateCropExpression(const unsigned int indentationLevel, Express
 }
 
 static void _generateOpenExpression(const unsigned int indentationLevel, Expression * expression) {
-    _output(indentationLevel, "open_image( ");
+    _output(indentationLevel, "OPEN(");
     _generateVariable(0, expression->data.open.filename);
-    _output(0, " )");
+    _output(0, ")");
 }
 
 static void _generateSaveExpression(const unsigned int indentationLevel, Expression * expression) {
-    _output(indentationLevel, "save_image( ");
+    _output(indentationLevel, "SAVE(");
     _generateFactor(indentationLevel, expression->data.save.image);
     _output(0, ", ");
     _generateVariable(indentationLevel, expression->data.save.filename);
-    _output(0, " )");
+    _output(0, ")");
 }
 
 static void _generateResizeExpression(const unsigned int indentationLevel, Expression * expression) {
-    _output(indentationLevel, "resize_image( ");
+    _output(indentationLevel, "RESIZE(");
     _generateFactor(indentationLevel, expression->data.resize.image);
     _output(0, ", ");
     _generateVariable(indentationLevel, expression->data.resize.dimension);
-    _output(0, " )");
+    _output(0, ")");
 }
 
 static void _generateRotateExpression(const unsigned int indentationLevel, Expression * expression) {
-    _output(indentationLevel, "rotate_image( ");
+    _output(indentationLevel, "ROTATE( ");
     _generateFactor(indentationLevel, expression->data.numeric_op.image);
     _output(0, ", ");
     _generateVariable(indentationLevel, expression->data.numeric_op.value);
-    _output(0, " )");
+    _output(0, ")");
 }
 
 static void _generateBrightnessExpression(const unsigned int indentationLevel, Expression * expression) {
-    _output(indentationLevel, "brightness_image( ");
+    _output(indentationLevel, "BRIGHTNESS(");
     _generateFactor(indentationLevel, expression->data.numeric_op.image);
     _output(0, ", ");
     _generateVariable(indentationLevel, expression->data.numeric_op.value);
-    _output(0, " )");
+    _output(0, ")");
 }
 
 static void _generateContrastExpression(const unsigned int indentationLevel, Expression * expression) {
-    _output(indentationLevel, "contrast_image( ");
+    _output(indentationLevel, "CONTRAST(");
     _generateFactor(indentationLevel, expression->data.numeric_op.image);
     _output(0, ", ");
     _generateVariable(indentationLevel, expression->data.numeric_op.value);
-    _output(0, " )");
+    _output(0, ")");
 }
 
 static void _generateBlurExpression(const unsigned int indentationLevel, Expression * expression) {
-    _output(indentationLevel, "blur_image( ");
+    _output(indentationLevel, "BLUR(");
     _generateFactor(indentationLevel, expression->data.numeric_op.image);
     _output(0, ", ");
     _generateVariable(indentationLevel, expression->data.numeric_op.value);
-    _output(0, " )");
+    _output(0, ")");
 }
 
 static void _generatePixelateExpression(const unsigned int indentationLevel, Expression * expression) {
-    _output(indentationLevel, "pixelate_image( ");
+    _output(indentationLevel, "PIXELATE(");
     _generateFactor(indentationLevel, expression->data.numeric_op.image);
     _output(0, ", ");
     _generateVariable(indentationLevel, expression->data.numeric_op.value);
-    _output(0, " )");
+    _output(0, ")");
 }
 
 static void _generateOpacityExpression(const unsigned int indentationLevel, Expression * expression) {
-    _output(indentationLevel, "opacity_image( ");
+    _output(indentationLevel, "OPACITY(");
     _generateFactor(indentationLevel, expression->data.numeric_op.image);
     _output(0, ", ");
     _generateVariable(indentationLevel, expression->data.numeric_op.value);
-    _output(0, " )");
+    _output(0, ")");
 }
 
 static void _generateFlipExpression(const unsigned int indentationLevel, Expression * expression) {
-    _output(indentationLevel, "flip_image( ");
+    _output(indentationLevel, "FLIP( ");
     _generateFactor(indentationLevel, expression->data.directional_op.image);
     _output(0, ", ");
     switch (expression->data.directional_op.direction) {
         case HORIZONTAL:
-            _output(0, "HORIZONTAL");
+            _output(0, "horizontal");
             break;
         case VERTICAL:
-            _output(0, "VERTICAL");
+            _output(0, "vertical");
             break;
         default:
             logError(_logger, "Unknown direction: %d", expression->data.directional_op.direction);
@@ -341,54 +322,54 @@ static void _generateFlipExpression(const unsigned int indentationLevel, Express
 }
 
 static void _generateGrayscaleExpression(const unsigned int indentationLevel, Expression * expression) {
-    _output(indentationLevel, "grayscale_image( ");
+    _output(indentationLevel, "GRAYSCALE(");
     _generateFactor(indentationLevel, expression->data.simple_op.image);
-    _output(0, " )");
+    _output(0, ")");
 }
 
 static void _generateInvertExpression(const unsigned int indentationLevel, Expression * expression) {
-    _output(indentationLevel, "invert_image( ");
+    _output(indentationLevel, "INVERT(");
     _generateFactor(indentationLevel, expression->data.simple_op.image);
-    _output(0, " )");
+    _output(0, ")");
 }
 
 static void _generateSharpenExpression(const unsigned int indentationLevel, Expression * expression) {
-    _output(indentationLevel, "sharpen_image( ");
+    _output(indentationLevel, "SHARPEN(");
     _generateFactor(indentationLevel, expression->data.simple_op.image);
-    _output(0, " )");
+    _output(0, ")");
 }
 
 static void _generateBlendImagesExpression(const unsigned int indentationLevel, Expression * expression) {
-    _output(indentationLevel, "blend_images( ");
+    _output(indentationLevel, "BLEND(");
     _generateFactor(indentationLevel, expression->data.dual_op.image1);
     _output(0, ", ");
     _generateFactor(indentationLevel, expression->data.dual_op.image2);
     _output(0, ", ");
     _generateVariable(indentationLevel, expression->data.dual_op.param.blend_factor);
-    _output(0, " )");
+    _output(0, ")");
 }
 
 static void _generateMergeImagesExpression(const unsigned int indentationLevel, Expression * expression) {
-    _output(indentationLevel, "merge_images( ");
+    _output(indentationLevel, "MERGE(");
     _generateFactor(indentationLevel, expression->data.dual_op.image1);
     _output(0, ", ");
     _generateFactor(indentationLevel, expression->data.dual_op.image2);
     _output(0, ", ");
     switch (expression->data.dual_op.param.direction) {
         case HORIZONTAL:
-            _output(0, "HORIZONTAL");
+            _output(0, "horizontal");
             break;
         case VERTICAL:
-            _output(0, "VERTICAL");
+            _output(0, "vertical");
             break;
         default:
             logError(_logger, "Unknown direction: %d", expression->data.dual_op.param.direction);
     }
-    _output(0, " )");
+    _output(0, ")");
 }
 
 static void _generateRecolorImageExpression(const unsigned int indentationLevel, Expression * expression) {
-    _output(indentationLevel, "recolor_image( ");
+    _output(indentationLevel, "RECOLOR( ");
     _generateFactor(indentationLevel, expression->data.recolor.image);
     _output(0, ", ");
     _generateVariable(indentationLevel, expression->data.recolor.from_color1);

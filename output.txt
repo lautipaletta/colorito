@@ -1,5 +1,4 @@
-String img1_file = "/img/background.jpg";
-Expression img1 = open_image( img1_file );
-Expression img2 = open_image( "/img/logo.jpg" );
-Expression result = blend_images( img1, img2, 50% );
-save_image( result, "out/background_logo.jpg" );
+OPEN("image");
+SAVE(( OPEN("image") ), "route");
+CROP(( OPEN("image1") ), 4, 1);
+RESIZE(( OPEN("image") ), (800, 600));

@@ -11,16 +11,16 @@ void initializeGeneratorModule() {
 	_logger = createLogger("Generator");
 }
 
-// void shutdownGeneratorModule() {
-// 	if (_logger != NULL) {
-// 		destroyLogger(_logger);
-// 	}
-// }
+void shutdownGeneratorModule() {
+	if (_logger != NULL) {
+		destroyLogger(_logger);
+	}
+}
 
 /** PRIVATE FUNCTIONS */
 
 // static void _generateEpilogue(const int value);
-// static void _generatePrologue(void);
+static void _generatePrologue(void);
 
 static void _generateProgram(Program * program);
 static void _generateLines(const unsigned int indentationLevel, Line * line);
@@ -387,7 +387,7 @@ void generate(CompilerState * compilerState) {
     // TODO: allow other file names to output
     _outputFile = fopen("output.txt", "w");
     if (!_outputFile) {
-        logError(_logger, "No se pudo abrir el archivo de salida. Using stdout instead.");
+        logError(_logger, "Could not open output file. Using stdout instead.");
         _outputFile = stdout;
     }
 

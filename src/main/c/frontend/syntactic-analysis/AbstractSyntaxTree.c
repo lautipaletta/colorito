@@ -18,7 +18,7 @@ void shutdownAbstractSyntaxTreeModule() {
 
 void releaseExpression(Expression * expression) {
 	logDebugging(_logger, "Executing destructor: %s", __FUNCTION__);
-	logDebugging(_logger, "Liberando expresion en %p", expression);
+	logDebugging(_logger, "Releasing expression at %p", expression);
 	if (expression != NULL) {
 		switch (expression->type) {
 			case OPEN_IMAGE:
@@ -83,7 +83,7 @@ void releaseExpression(Expression * expression) {
 
 void releaseProgram(Program * program) {
 	logDebugging(_logger, "Executing destructor: %s", __FUNCTION__);
-	logDebugging(_logger, "Liberando programa en %p", program);
+	logDebugging(_logger, "Releasing program at %p", program);
 	if (program != NULL) {
 		releaseLine(program->line);
 		free(program);
@@ -92,12 +92,12 @@ void releaseProgram(Program * program) {
 
 void releaseFactor(Factor * factor) {
 	logDebugging(_logger, "Executing destructor: %s", __FUNCTION__);
-	logDebugging(_logger, "Liberando factor en %p", factor);
+	logDebugging(_logger, "Releasing factor at %p", factor);
 	if (factor != NULL) {
 		if(factor->type == FACTOR_EXPRESSION) {
 			releaseExpression(factor->data.expression);
 		} else {
-			logDebugging(_logger, "Liberando identifier %p (%s)\n", factor->data.identifier, factor->data.identifier);
+			logDebugging(_logger, "Releasing identifier %p (%s)\n", factor->data.identifier, factor->data.identifier);
 			if(factor->data.identifier != NULL) free((void*) factor->data.identifier);
 		}
 		free(factor);
@@ -106,14 +106,14 @@ void releaseFactor(Factor * factor) {
 
 void releaseLine(Line * line) {
 	logDebugging(_logger, "Executing destructor: %s", __FUNCTION__);
-	logDebugging(_logger, "Liberando line en %p", line);
+	logDebugging(_logger, "Releasing line at %p", line);
 	if (line != NULL) {
 		switch(line->type) {
 			case LINE_EXPRESSION:
 				releaseExpression(line->content.expression);
 				break;
 			case LINE_VARIABLE_DECLARATION:
-				logDebugging(_logger, "Liberando identifier %p (%s)\n", line->content.variable_declaration.identifier, line->content.variable_declaration.identifier);
+				logDebugging(_logger, "Releasing identifier %p (%s)\n", line->content.variable_declaration.identifier, line->content.variable_declaration.identifier);
 				if(line->content.variable_declaration.identifier != NULL ) free((void*) line->content.variable_declaration.identifier);
 				releaseVariable(line->content.variable_declaration.variable);
 				break;
@@ -125,7 +125,7 @@ void releaseLine(Line * line) {
 
 void releaseVariable(Variable * variable) {
 	logDebugging(_logger, "Executing destructor: %s", __FUNCTION__);
-	logDebugging(_logger, "Liberando variable en %p", variable);
+	logDebugging(_logger, "Releasing variable at %p", variable);
 	if (variable != NULL) {
 		switch (variable->type) {
 			case STRING_TYPE:
@@ -145,7 +145,7 @@ void releaseVariable(Variable * variable) {
 				free((void*) variable->data.dimension);
 				break;
 			case IDENTIFIER_TYPE:
-				logDebugging(_logger, "Liberando identifier %p (%s)\n", variable->data.identifier, variable->data.identifier);
+				logDebugging(_logger, "Releasing identifier %p (%s)\n", variable->data.identifier, variable->data.identifier);
 				if(variable->data.identifier != NULL) free((void*) variable->data.identifier);
 				break;
 		}

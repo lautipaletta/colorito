@@ -60,7 +60,7 @@ const int main(const int count, const char ** arguments) {
 		compilationStatus = FAILED;
 	}
 	logDebugging(logger, "Releasing modules resources...");
-	//shutdownGeneratorModule();
+	shutdownGeneratorModule();
 	shutdownColoritoModule();
 	shutdownAbstractSyntaxTreeModule();
 	shutdownSyntacticAnalyzerModule();

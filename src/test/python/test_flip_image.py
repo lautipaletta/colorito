@@ -5,10 +5,10 @@ from PIL import Image
 from image_ops import flip_image, save_image, open_image
 
 def test_flip_image():
-    img = open_image("test/python/input/prueba.png")
+    img = open_image("test/python/input/prueba.jpg")
     flipped = flip_image(img, 'horizontal')
     os.makedirs("test/python/output", exist_ok=True)
-    save_image(flipped, "test/python/output/flip_image_result.png")
+    save_image(flipped, "test/python/output/flip_image_result.jpg")
     print("test_flip_image: OK")
 
 if __name__ == "__main__":

@@ -6,7 +6,7 @@ from image_ops import open_image, save_image
 
 def test_open_image():
     # Crear imagen de prueba si no existe
-    img_path = "test/python/input/prueba.png"
+    img_path = "test/python/input/prueba.jpg"
     os.makedirs(os.path.dirname(img_path), exist_ok=True)
     if not os.path.exists(img_path):
         img = Image.new("RGB", (100, 100), color="red")
@@ -16,7 +16,7 @@ def test_open_image():
     assert isinstance(img, Image.Image)
     # Guardar copia para verificar
     os.makedirs("test/python/output", exist_ok=True)
-    save_image(img, "test/python/output/open_image_result.png")
+    save_image(img, "test/python/output/open_image_result.jpg")
     print("test_open_image: OK")
 
 if __name__ == "__main__":

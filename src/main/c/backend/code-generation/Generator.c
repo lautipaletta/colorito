@@ -99,7 +99,7 @@ static void _generateLines(const unsigned int indentationLevel, Line * line) {
         switch (line->type) {
             case LINE_EXPRESSION:
                 _generateExpression(indentationLevel, line->content.expression);
-                _output(0, ";\n");  
+                _output(0, "\n");  
                 break;
             case LINE_VARIABLE_DECLARATION:
                 _generateVariableDeclaration(indentationLevel, line->content.variable_declaration.identifier, line->content.variable_declaration.variable);
@@ -117,7 +117,6 @@ static void _generateVariableDeclaration(const unsigned int indentationLevel, co
     // Output the variable declaration
     _output(indentationLevel, "%s = ", identifier);
     _generateVariable(0, variable);
-    _output(0, ";");
 }
 
 static void _generateFactor(const unsigned int indentationLevel, Factor * factor) {
@@ -318,7 +317,7 @@ static void _generateFlipExpression(const unsigned int indentationLevel, Express
         default:
             logError(_logger, "Unknown direction: %d", expression->data.directional_op.direction);
     }
-    _output(0, " )");
+    _output(0, ")");
 }
 
 static void _generateGrayscaleExpression(const unsigned int indentationLevel, Expression * expression) {

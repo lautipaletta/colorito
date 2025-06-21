@@ -1,0 +1,55 @@
+img1 = open "generated_code_tests/input/prueba.png";
+img2 = open "generated_code_tests/input/prueba2.png";
+
+save img1 "generated_code_tests/output/save_img1.png";
+
+cropped = crop img1 in 3 get 1;
+save cropped "generated_code_tests/output/crop_img1.png";
+
+resized = resize img1 to 200x100;
+save resized "generated_code_tests/output/resize_img1.png";
+
+rotated = rotate img1 by 90;
+save rotated "generated_code_tests/output/rotate_img1.png";
+
+bright = brightness img1 by 50;
+save bright "generated_code_tests/output/brightness_img1.png";
+
+contrasted = contrast img1 by 30;
+save contrasted "generated_code_tests/output/contrast_img1.png";
+
+blurred = blur img1 by 5;
+save blurred "generated_code_tests/output/blur_img1.png";
+
+pixelated = pixelate img1 by 10;
+save pixelated "generated_code_tests/output/pixelate_img1.png";
+
+opacity_img = opacity img1 40%;
+save opacity_img "generated_code_tests/output/opacity_img1.png";
+
+flipped_h = flip img1 horizontally;
+save flipped_h "generated_code_tests/output/flipped_h_img1.png";
+
+flipped_v = flip img1 vertically;
+save flipped_v "generated_code_tests/output/flipped_v_img1.png";
+
+gray = grayscale img1;
+save gray "generated_code_tests/output/grayscale_img1.png";
+
+inverted = invert img1;
+save inverted "generated_code_tests/output/invert_img1.png";
+
+sharpened = sharpen img1;
+save sharpened "generated_code_tests/output/sharpened_img1.png";
+
+blended = blend img1 with img2 using 50%;
+save blended "generated_code_tests/output/blended_img.png";
+
+merged_h = merge img1 with img2 horizontally;
+save merged_h "generated_code_tests/output/merged_h_img.png";
+
+merged_v = merge img1 with img2 vertically;
+save merged_v "generated_code_tests/output/merged_v_img.png";
+
+recolored = recolor img1 #FF0000 #00FF00 to #0000FF;
+save recolored "generated_code_tests/output/recolored_img1.png";

@@ -1,0 +1,2 @@
+image1 = "image";
+image2 = image1;

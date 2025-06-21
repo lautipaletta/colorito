@@ -309,10 +309,10 @@ static void _generateFlipExpression(const unsigned int indentationLevel, Express
     _output(0, ", ");
     switch (expression->data.directional_op.direction) {
         case HORIZONTAL:
-            _output(0, "horizontal");
+            _output(0, "\"horizontal\"");
             break;
         case VERTICAL:
-            _output(0, "vertical");
+            _output(0, "\"vertical\"");
             break;
         default:
             logError(_logger, "Unknown direction: %d", expression->data.directional_op.direction);
@@ -356,10 +356,10 @@ static void _generateMergeImagesExpression(const unsigned int indentationLevel, 
     _output(0, ", ");
     switch (expression->data.dual_op.param.direction) {
         case HORIZONTAL:
-            _output(0, "horizontal");
+            _output(0, "\"horizontal\"");
             break;
         case VERTICAL:
-            _output(0, "vertical");
+            _output(0, "\"vertical\"");
             break;
         default:
             logError(_logger, "Unknown direction: %d", expression->data.dual_op.param.direction);

@@ -211,6 +211,8 @@ def blend_image(img1: Image.Image, img2: Image.Image, percentage: float) -> Imag
         blended = blend_image(img1, img2, 0.5)
     """
     logger.info(f"Blending images with alpha={percentage}")
+    if img1.size != img2.size:
+        img2 = img2.resize(img1.size)
     return Image.blend(img1, img2, percentage)
 
 def merge_image(img1: Image.Image, img2: Image.Image, orientation: str) -> Image.Image:
@@ -224,6 +226,8 @@ def merge_image(img1: Image.Image, img2: Image.Image, orientation: str) -> Image
         merged = merge_image(img1, img2, 'horizontal')
     """
     logger.info(f"Merging images, orientation: {orientation}")
+    if img1.size != img2.size:
+        img2 = img2.resize(img1.size)
     if orientation == 'horizontal':
         new_img = Image.new("RGB", (img1.width + img2.width, max(img1.height, img2.height)))
         new_img.paste(img1, (0, 0))

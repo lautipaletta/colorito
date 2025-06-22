@@ -15,7 +15,7 @@ pip install -r requirements.txt
 1. Generar un archivo Python con el código generado (por ejemplo, `programa_generado.py`). Para ver como generar el código consultar la sección **start** en:
    * [Microsoft Windows](../../../doc/readme/Windows.md)
    * [Ubuntu](../../../doc/readme/Ubuntu.md)
-2. Ejecutar el runtime:
+2. Ejecutar el runtime desde la carpeta colorito\src\main\phyton:
 ```
 python runtime.py programa_generado.py
 ```

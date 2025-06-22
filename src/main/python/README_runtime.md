@@ -13,8 +13,8 @@ pip install -r requirements.txt
 
 ## Uso
 1. Generar un archivo Python con el código generado (por ejemplo, `programa_generado.py`). Para ver como generar el código consultar la sección **start** en:
-   * [Microsoft Windows](doc/readme/Windows.md)
-   * [Ubuntu](doc/readme/Ubuntu.md)
+   * [Microsoft Windows](../../../doc/readme/Windows.md)
+   * [Ubuntu](../../../doc/readme/Ubuntu.md)
 2. Ejecutar el runtime:
 ```
 python runtime.py programa_generado.py

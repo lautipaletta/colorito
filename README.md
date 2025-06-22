@@ -26,6 +26,7 @@ Set the following environment variables to control and configure the behaviour o
 |-|:-:|-|
 |`LOG_IGNORED_LEXEMES`|`true`|When `true`, logs all of the ignored lexemes found with Flex at DEBUGGING level. To remove those logs from the console output set it to `false`.|
 |`LOGGING_LEVEL`|`INFORMATION`|The minimum level to log in the console output. From lower to higher, the available levels are: `ALL`, `DEBUGGING`, `INFORMATION`, `WARNING`, `ERROR` and `CRITICAL`.|
+|`COLORITO_OUTPUT_FILE_PATH`|`src/main/python/generated_code.py` | The file path for generated code.
 
 ## CI/CD
 

@@ -2,10 +2,14 @@
 
 /* MODULE INTERNAL STATE */
 
+
 const char _indentationCharacter = ' ';
 const char _indentationSize = 4;
 static Logger * _logger = NULL;
+
 static FILE * _outputFile = NULL;
+const char * _outputFileEnv = "COLORITO_OUTPUT_FILE_PATH";
+const char * _outputFileDefault = "src/main/python/generated_code.py";
 
 void initializeGeneratorModule() {
 	_logger = createLogger("Generator");
@@ -19,7 +23,6 @@ void shutdownGeneratorModule() {
 
 /** PRIVATE FUNCTIONS */
 
-// static void _generateEpilogue(const int value);
 static void _generatePrologue(void);
 
 static void _generateProgram(Program * program);
@@ -391,8 +394,8 @@ static void _generatePrologue() {
 void generate(CompilerState * compilerState) {
 	logDebugging(_logger, "Generating final output...");
 
-    // TODO: allow other file names to output
-    _outputFile = fopen("src/main/python/generated_code.py", "w");
+    const char * outputFileName = getStringOrDefault(_outputFileEnv, _outputFileDefault);
+    _outputFile = fopen(outputFileName, "w");
     if (!_outputFile) {
         logError(_logger, "Could not open output file. Using stdout instead.");
         _outputFile = stdout;
@@ -400,6 +403,6 @@ void generate(CompilerState * compilerState) {
 
 	_generatePrologue();
 	_generateProgram(compilerState->abstractSyntaxtTree);
-	// _generateEpilogue(compilerState->value);
+
 	logDebugging(_logger, "Generation is done.");
 }

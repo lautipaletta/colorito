@@ -158,7 +158,11 @@ static boolean _checkLine(Line * line) {
 				result = false;
 			} else {
 				_declareVariable(id, var->type);
-				result = _checkVariableWithType(var, var->type);
+				if (var->type == EXPRESSION_TYPE && var->data.expression != NULL) {
+					result = _checkExpression(var->data.expression) && _checkVariableWithType(var, var->type);; 
+				} else {
+					result = _checkVariableWithType(var, var->type);
+				}
 			}
 			break;
 		}

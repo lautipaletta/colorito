@@ -82,7 +82,7 @@ def rotate_image(img: Image.Image, angle: float) -> Image.Image:
         rotated = rotate_image(img, 90)
     """
     logger.info(f"Rotating image {angle} degrees")
-    return img.rotate(angle)
+    return img.rotate(angle, expand=True)
 
 def brightness_image(img: Image.Image, value: float) -> Image.Image:
     """

@@ -1,0 +1,3 @@
+tres = "tres";
+not_an_image = "not_an_image";
+cropped = crop not_an_image in tres get 1;

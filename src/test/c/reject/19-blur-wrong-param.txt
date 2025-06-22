@@ -1,0 +1,1 @@
+blurred = blur 10 by (open "img.png");

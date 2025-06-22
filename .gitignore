@@ -25,5 +25,5 @@ BisonGrammar.output
 src/main/python/generated_code.py
 *.pyc
 src/main/python/__pycache__
-src/main/python/generated_code_tests/output/*
-src/test/python/output/*
+src/main/python/generated_code_tests/output/*.png
+src/test/python/output/*.png

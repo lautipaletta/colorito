@@ -1,0 +1,1 @@
+save "not_an_image";

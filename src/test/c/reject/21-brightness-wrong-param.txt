@@ -1,0 +1,1 @@
+bright = brightness "not_an_image" by 50%;
